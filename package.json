@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/step-batch-7/anansi-acquire/issues"
   },
-  "homepage": "https://github.com/step-batch-7/anansi-acquire#readme"
+  "homepage": "https://github.com/step-batch-7/anansi-acquire#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0"
+  }
 }
