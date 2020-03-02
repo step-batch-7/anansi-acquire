@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/step-batch-7/anansi-acquire#readme",
   "devDependencies": {
-    "eslint": "^6.8.0"
+    "chai": "^4.2.0",
+    "eslint": "^6.8.0",
+    "mocha": "^7.1.0"
   }
 }
