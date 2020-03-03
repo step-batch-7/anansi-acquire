@@ -9,7 +9,8 @@
   "scripts": {
     "test": "nyc mocha",
     "linterTest": "eslint ./",
-    "allTests": "npm run test && npm run linterTest"
+    "allTests": "npm run test && npm run linterTest",
+    "stage": "git push https://git.heroku.com/stage-anansi-acquire.git master"
   },
   "repository": {
     "type": "git",
