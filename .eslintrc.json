@@ -105,6 +105,16 @@
         "no-magic-numbers": "off",
         "max-statements": "off"
       }
+    },
+    {
+      "files": [
+        "server.js",
+        "lib/routes.js"
+      ],
+      "rules": {
+        "no-console": "off",
+        "no-process-env": "off"
+      }
     }
   ]
 }
