@@ -118,7 +118,7 @@ const updateGamePage = function(data){
   showPlayerAssets(data.player.assets);
   showProfileName(data.player.name);
   showAllPlayersProfile(data.playersProfile);
-  showStatus(data.status);
+  showStatus(data.player.statusMsg);
   showActivityLog(data.activity);
 };
 
