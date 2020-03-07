@@ -63,8 +63,18 @@ describe('POST', () => {
         .expect(302, done);
     });
 
-    it('should give bad request if user enters only one input', done => {
+    it('should give bad request if user enters only name', done => {
       const body = JSON.stringify({ name: 'john' });
+      request(app)
+        .post('/hostGame')
+        .set('Content-Type', 'application/json')
+        .send(body)
+        .expect(400)
+        .expect(/Bad Request/, done);
+    });
+
+    it('should give bad request if user enters only no of players', done => {
+      const body = JSON.stringify({ noOfPlayers: '3' });
       request(app)
         .post('/hostGame')
         .set('Content-Type', 'application/json')
