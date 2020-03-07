@@ -118,9 +118,7 @@
     },
     {
       "files": [
-        "index.js",
-        "gamePage.js",
-        "sentSyncRequest.js"
+        "public/js/*.js"
       ],
       "rules": {
         "no-unused-vars": "off",

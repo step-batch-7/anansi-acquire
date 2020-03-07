@@ -9,7 +9,7 @@ body {
 
 .heading_img {
   width: 40%;
-  height: 18%;
+  height: 20%;
   background: url(../images/title.svg);
   background-size: cover;
   margin: 0 auto;
@@ -40,4 +40,14 @@ body {
 
 .options:hover {
   background-color: rgb(231, 231, 231);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.text-container {
+  margin-bottom: 10px;
 }
