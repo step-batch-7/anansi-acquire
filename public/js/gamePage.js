@@ -28,8 +28,23 @@ const addPlacedTilesOnBoard = function(tiles){
   });
 };
 
+const showCorpInfo = function(corpInfo){
+  for(const corp in corpInfo){
+    const corpRow = document.getElementById(corp);
+    corpRow.innerHTML =
+      `<td>${corp}</td>
+      <td>${corpInfo[corp].stocks}</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>`
+    ;
+  }
+};
+
 const updateGamePage = function(data){
   addPlacedTilesOnBoard(data.placedTiles);
+  showCorpInfo(data.infoTable);
 };
 
 const main = function(){
