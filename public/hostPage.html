@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Host Game</title>
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="css/hostPage.css">
+</head>
+
+<body>
+  <div class="heading_img"></div>
+  <div class="box">
+    <form action="/hostGame" method="POST">
+      <label for="username">Name:</label>
+      <input type="text" name="username" required>
+      <br>
+      <label for="noOfPlayers">No of players:</label>
+      <select>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+      </select>
+      <br>
+      <button id="Host">Host</button>
+    </form>
+    <button id="Home" onclick="window.location.href='./index.html'">Home</button>
+</body>
+
+</html>
