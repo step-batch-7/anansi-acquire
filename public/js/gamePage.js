@@ -47,7 +47,7 @@ const createTile = function(text){
 };
 
 const createTileSets = function(tiles){
-  return tiles.map(tileName => createTile(tileName)).join(' ');
+  return tiles.map(tileName => createTile(tileName)).join('');
 };
 
 const showPlayerAssets = function(assets){
@@ -66,11 +66,30 @@ const showProfileName = function(name){
   playerName.innerText = name;
 };
 
+const createProfile = function(name, id){
+  return `<div class="profile" id="player${id}">
+    <div class="name">${name}</div>
+    <img src="images/man.svg" alt="" />
+    </div>`;
+};
+
+const createPlayersProfile = function(playersNames){
+  return playersNames.map(
+    (playerName, id) => createProfile(playerName, id)
+  ).join('');
+};
+
+const showAllPlayersProfile = function(playersProfile){
+  const playersBox = document.getElementById('players');
+  playersBox.innerHTML = createPlayersProfile(playersProfile.allPlayersName);
+};
+
 const updateGamePage = function(data){
   addPlacedTilesOnBoard(data.placedTiles);
   showCorpInfo(data.infoTable);
   showPlayerAssets(data.player.assets);
   showProfileName(data.player.name);
+  showAllPlayersProfile(data.playersProfile);
 };
 
 const main = function(){
