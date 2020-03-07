@@ -89,11 +89,14 @@ const showStatus = function(status){
   messageBox.innerText = status;
 };
 
-const showCardBody = function(card) {
+const showCardBody = function(card, tab) {
   const cardsBody = Array.from(document.querySelectorAll('.cardBody'));
+  const tabs = Array.from(document.querySelectorAll('.tabs'));
   cardsBody.forEach(cardBody => cardBody.classList.add('hideDiv'));
+  tabs.forEach(tab => tab.classList.remove('selected'));
   const activeCard = document.getElementById(card);
   activeCard.classList.remove('hideDiv');
+  tab.classList.add('selected');
 };
 
 const createActivityRow = function({type, text}){

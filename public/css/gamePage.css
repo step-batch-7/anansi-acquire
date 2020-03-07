@@ -187,8 +187,14 @@ body {
 .tabs {
   border-right: 1px solid black;
   cursor: pointer;
-  margin-left: 2.5%;
+  padding-left: 2.5%;
+  height: 84%;
   padding-right: 2.5%;
+  padding-top: 1%;
+}
+
+.selected{
+  background-color: #f6cce6;
 }
 
 #activityLog>p{
