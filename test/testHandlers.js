@@ -35,6 +35,14 @@ describe('GET', () => {
       .expect(/No of players/, done);
   });
 
+  it('should get the index.css for "css/index.css" path', done => {
+    request(app)
+      .get('/css/hostPage.css')
+      .set('accept', '*/*')
+      .expect(200)
+      .expect('Content-Type', /text\/css/, done);
+  });
+
   it('should get the join.js for /js/join.js', done => {
     request(app)
       .get('/js/join.js')
@@ -53,6 +61,16 @@ describe('POST', () => {
         .set('Content-Type', 'application/json')
         .send(body)
         .expect(302, done);
+    });
+
+    it('should give bad request if user enters only one input', done => {
+      const body = JSON.stringify({ name: 'john' });
+      request(app)
+        .post('/hostGame')
+        .set('Content-Type', 'application/json')
+        .send(body)
+        .expect(400)
+        .expect(/Bad Request/, done);
     });
   });
 
