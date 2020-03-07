@@ -39,7 +39,7 @@ describe('POST', () => {
   describe('/joinGame', () => {
     it('should give Game id for valid game id for path /joingame', done => {
       const body = JSON.stringify({name: 'john', gameId: '1234'});
-      const expected = {isAnyError: false, msg: 'Game id: 1234'};
+      const expected = {isAnyError: false};
       const expectedJson = JSON.stringify(expected);
       app.locals.games = {1234: {noOfPlayers: 3, players: ['ram']}};
       request(app)

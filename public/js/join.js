@@ -1,6 +1,6 @@
 const startGame = function({isAnyError, msg}) {
   if (!isAnyError) {
-    document.location = 'wait';
+    document.location = 'game/wait';
     return;
   }
   document.querySelector('#error').innerText = msg;
@@ -9,6 +9,9 @@ const startGame = function({isAnyError, msg}) {
 const joinInGame = function() {
   const name = document.querySelector('#name-textbox').value;
   const gameId = document.querySelector('#id-textbox').value;
+  if(!name.trim() || !gameId.trim()) {
+    return;
+  }
   const body = JSON.stringify({name, gameId});
   const headers = {'Content-Type': 'application/json'};
   fetch('/joinGame', {method: 'POST', headers, body})
