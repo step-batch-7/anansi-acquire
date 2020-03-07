@@ -27,17 +27,20 @@
   font-style: italic;
 }
 
-#Host,
-#Home {
+#Host {
   font-size: 1.5vw;
   width: 85%;
-  height: 25%;
+  height: 20%;
   margin-left: 2vw;
   margin-top: 5vw;
+  border: 1px solid #afafaf;
+  background-color: #f0f0f0;
 }
 
 #Home {
+  font-size: 1.5vw;
+  margin-left: 2vw;
   width: 85%;
-  margin-top: 3vw;
-  height: 14.2%;
+  margin-top: 1vw;
+  height: 13%;
 }

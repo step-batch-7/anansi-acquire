@@ -13,18 +13,18 @@
   <div class="heading_img"></div>
   <div class="box">
     <form action="/hostGame" method="POST">
-      <label for="username">Name:</label>
-      <input type="text" name="username" required>
+      <label for="name">Name:</label>
+      <input type="text" name="name" required>
       <br>
       <label for="noOfPlayers">No of players:</label>
-      <select>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
+      <select name="noOfPlayers">
+        <option name="noOfPlayers" value="3">3</option>
+        <option name="noOfPlayers" value="4">4</option>
+        <option name="noOfPlayers" value="5">5</option>
+        <option name="noOfPlayers" value="6">6</option>
       </select>
       <br>
-      <button id="Host">Host</button>
+      <input type="submit" value="Host" id="Host">
     </form>
     <button id="Home" onclick="window.location.href='./index.html'">Home</button>
 </body>
