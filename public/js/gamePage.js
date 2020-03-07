@@ -21,6 +21,18 @@ const createBoard = function() {
   }
 };
 
+const placeATile = function(tile){
+  sentPostReq(
+    '/game/placeTile', 
+    {
+      method: 'POST', 
+      headers: {'Content-Type': 'application/json'}, 
+      body: JSON.stringify({tile: tile.innerText})
+    },
+    updateGamePage
+  );
+};
+
 const addPlacedTilesOnBoard = function(tiles){
   tiles.forEach(id => {
     const tile = document.getElementById(id);
@@ -43,7 +55,7 @@ const showCorpInfo = function(corpInfo){
 };
 
 const createTile = function(text){
-  return `<div class="playersTile">${text}</div>`;
+  return `<div class="playersTile" onclick="placeATile(this)">${text}</div>`;
 };
 
 const createTileSets = function(tiles){

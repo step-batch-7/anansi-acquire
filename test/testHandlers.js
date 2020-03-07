@@ -142,11 +142,11 @@ describe('POST', () => {
   });
 
   describe('/joinGame', () => {
-    it('should isAnyError false for valid game id', done => {
+    it('should give isAnyError false for valid game id', done => {
       const body = JSON.stringify({name: 'john', gameId: '1234'});
       const expected = {isAnyError: false};
       const expectedJson = JSON.stringify(expected);
-      app.locals.games = {1234: {noOfPlayers: 3, players: [{name: 'ram'}]}};
+      app.locals.games = {1234: {hasAllPlayerJoined: () => false, addPlayer: () => {}}};
       request(app)
         .post('/joinGame')
         .set('Content-Type', 'application/json')
@@ -173,8 +173,7 @@ describe('POST', () => {
       const body = JSON.stringify({name: 'john', gameId: '1234'});
       const expected = {isAnyError: true, msg: 'The game already started'};
       const expectedJson = JSON.stringify(expected);
-      const players = [{name: 'ram'}, {name: 'anu'}, {name: 'sid'}];
-      app.locals.games = {1234: {noOfPlayers: 3, players}};
+      app.locals.games = {1234: {hasAllPlayerJoined: () => true}};
       request(app)
         .post('/joinGame')
         .set('Content-Type', 'application/json')
