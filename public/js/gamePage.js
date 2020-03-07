@@ -61,10 +61,16 @@ const showPlayerAssets = function(assets){
   }
 };
 
+const showProfileName = function(name){
+  const playerName = document.getElementById('playerName');
+  playerName.innerText = name;
+};
+
 const updateGamePage = function(data){
   addPlacedTilesOnBoard(data.placedTiles);
   showCorpInfo(data.infoTable);
   showPlayerAssets(data.player.assets);
+  showProfileName(data.player.name);
 };
 
 const main = function(){
