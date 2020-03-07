@@ -21,7 +21,15 @@ const createBoard = function() {
   }
 };
 
+const addPlacedTilesOnBoard = function(tiles){
+  tiles.forEach(id => {
+    const tile = document.getElementById(id);
+    tile.classList.add('placedTile');
+  });
+};
+
 const updateGamePage = function(data){
+  addPlacedTilesOnBoard(data.placedTiles);
 };
 
 const main = function(){
