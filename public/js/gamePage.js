@@ -84,12 +84,18 @@ const showAllPlayersProfile = function(playersProfile){
   playersBox.innerHTML = createPlayersProfile(playersProfile.allPlayersName);
 };
 
+const showStatus = function(status){
+  const messageBox = document.getElementById('messageBox');
+  messageBox.innerText = status;
+};
+
 const updateGamePage = function(data){
   addPlacedTilesOnBoard(data.placedTiles);
   showCorpInfo(data.infoTable);
   showPlayerAssets(data.player.assets);
   showProfileName(data.player.name);
   showAllPlayersProfile(data.playersProfile);
+  showStatus(data.status);
 };
 
 const main = function(){
