@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Anansi-Acquire</title>
+    <link rel="stylesheet" href="css/gamePage.css" />
+    <script src="js/gamePage.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <div class="header">
+        <img src="images/anansiLogo.png" alt="" />
+        <div class="gameName"></div>
+        <div id="messageBox"></div>
+        <div id="playerName"></div>
+        <div>Quit</div>
+      </div>
+      <div id="board"></div>
+      <table id="infoTable">
+        <tr>
+          <th>Corp. Name</th>
+          <th>Stocks</th>
+          <th>Price($)</th>
+          <th>Area</th>
+          <th>Majority($)</th>
+          <th>Minority($)</th>
+        </tr>
+        <tr id='phoenix' class='phoenix_color'>
+          <td>Phoenix</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr id="quantum" class='quantum_color'>
+          <td>Quantum</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr id="hydra" class='hydra_color'>
+          <td>Hydra</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr id="fusion" class='fusion_color'>
+          <td>Fusion</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr id="america" class='america_color'>
+          <td>America</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr id="sackson" class='sackson_color'>
+          <td>Sackson</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr id="zeta" class='zeta_color'>
+          <td>Zeta</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      </table>
+      <div id="money">
+        <div>Money</div>
+        <div id="playerMoney">$0</div>
+      </div>
+      <div id="playerStocks">
+        <div class="player_stocks_heading">Stocks</div>
+        <div class="stocks phoenix_color">
+          <div>Phoenix</div>
+          <div id="phoenix_stocks">0</div>
+        </div>
+        <div class="stocks quantum_color">
+          <div>Quantum</div>
+          <div id="quantum_stocks">0</div>
+        </div>
+        <div class="stocks hydra_color">
+          <div>Hydra</div>
+          <div id="hydra_stocks">0</div>
+        </div>
+        <div class="stocks fusion_color">
+          <div>Fusion</div>
+          <div id="fusion_stocks">0</div>
+        </div>
+        <div class="stocks america_color">
+          <div>America</div>
+          <div id="america_stocks">0</div>
+        </div>
+        <div class="stocks sackson_color">
+          <div>Sackson</div>
+          <div id="sackson_stocks">0</div>
+        </div>
+        <div class="stocks zeta_color">
+          <div>Zeta</div>
+          <div id="zeta_stocks">0</div>
+        </div>
+      </div>
+      <div id="card">
+        <div id="tabsHeading">
+          <div class="tabs">
+            ActivityLog
+          </div>
+          <div class="tabs">
+            InfoCard
+          </div>
+        </div>
+        <div id="cardBody"></div>
+      </div>
+      <div id="players"></div>
+      <div id="tiles">
+        <div>Tiles</div>
+        <div class="cluster"></div>
+      </div>
+    </div>
+  </body>
+</html>
