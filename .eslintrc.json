@@ -115,6 +115,16 @@
         "no-console": "off",
         "no-process-env": "off"
       }
+    },
+    {
+      "files": [
+        "index.js"
+      ],
+      "rules": {
+        "no-unused-vars": "off",
+        "no-undef": "off",
+        "no-magic-numbers": "off"
+      }
     }
   ]
 }
