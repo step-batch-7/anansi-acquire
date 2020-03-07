@@ -21,8 +21,12 @@ const createBoard = function() {
   }
 };
 
+const updateGamePage = function(data){
+};
+
 const main = function(){
   createBoard();
+  sentUpdateReq(updateGamePage);
 };
 
 window.onload = main;
