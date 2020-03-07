@@ -89,6 +89,26 @@ const showStatus = function(status){
   messageBox.innerText = status;
 };
 
+const showCardBody = function(card) {
+  const cardsBody = Array.from(document.querySelectorAll('.cardBody'));
+  cardsBody.forEach(cardBody => cardBody.classList.add('hideDiv'));
+  const activeCard = document.getElementById(card);
+  activeCard.classList.remove('hideDiv');
+};
+
+const createActivityRow = function({type, text}){
+  return `<p>${text}</p>`;
+};
+
+const createActivityLog = function(activities){
+  return activities.map(activity => createActivityRow(activity)).join('');
+};
+
+const showActivityLog = function(activities){
+  const activityCard = document.getElementById('activityLog');
+  activityCard.innerHTML = createActivityLog(activities);
+};
+
 const updateGamePage = function(data){
   addPlacedTilesOnBoard(data.placedTiles);
   showCorpInfo(data.infoTable);
@@ -96,6 +116,7 @@ const updateGamePage = function(data){
   showProfileName(data.player.name);
   showAllPlayersProfile(data.playersProfile);
   showStatus(data.status);
+  showActivityLog(data.activity);
 };
 
 const main = function(){

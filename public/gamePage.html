@@ -124,18 +124,23 @@
       </div>
       <div id="card">
         <div id="tabsHeading">
-          <div class="tabs">
+          <div class="tabs hideDiv" onclick="showCardBody('actions')">
+            Action
+          </div>
+          <div class="tabs" onclick="showCardBody('activityLog')">
             ActivityLog
           </div>
-          <div class="tabs">
+          <div class="tabs" onclick="showCardBody('infoCard')">
             InfoCard
           </div>
         </div>
-        <div id="cardBody"></div>
+        <div id="activityLog" class="cardBody"></div>
+        <div id="infoCard" class="cardBody hideDiv"></div>
+        <div id="actions" class="cardBody hideDiv"></div>
       </div>
       <div id="players"></div>
       <div id="tiles">
-        <div>Tiles</div>
+        <p>Tiles</p>
         <div class="cluster"></div>
       </div>
     </div>
