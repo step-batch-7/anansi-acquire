@@ -42,9 +42,29 @@ const showCorpInfo = function(corpInfo){
   }
 };
 
+const createTile = function(text){
+  return `<div class="playersTile">${text}</div>`;
+};
+
+const createTileSets = function(tiles){
+  return tiles.map(tileName => createTile(tileName)).join(' ');
+};
+
+const showPlayerAssets = function(assets){
+  const playerMoney = document.getElementById('playerMoney');
+  playerMoney.innerText = `$${assets.money}`;
+  const cluster = document.querySelector('.cluster');
+  cluster.innerHTML = createTileSets(assets.tiles);
+  for(const corp in assets.stocks){
+    const corpStocks = document.getElementById(`${corp}_stocks`);
+    corpStocks.innerText = assets.stocks[corp];
+  }
+};
+
 const updateGamePage = function(data){
   addPlacedTilesOnBoard(data.placedTiles);
   showCorpInfo(data.infoTable);
+  showPlayerAssets(data.player.assets);
 };
 
 const main = function(){
