@@ -30,12 +30,16 @@ body {
   cursor: pointer;
   margin: 0 auto;
   width: 65%;
-  height: 15%;
+  height: 10%;
   border: 1px solid black;
   margin-bottom: 5%;
   font-size: 20px;
   background-color: #fbfbfb;
   outline: none;
+  text-decoration: none;
+  color: black;
+  text-align: center;
+  padding-top: 2%;
 }
 
 .options:hover {
