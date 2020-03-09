@@ -148,7 +148,9 @@ describe('POST', () => {
       const body = JSON.stringify({name: 'john', gameId: '1234'});
       const expected = {isAnyError: false};
       const expectedJson = JSON.stringify(expected);
-      app.locals.games = {1234: {hasAllPlayerJoined: () => false, addPlayer: () => {}}};
+      app.locals.games = {
+        1234: {hasAllPlayerJoined: () => false, addPlayer: () => {}}
+      };
       request(app)
         .post('/joinGame')
         .set('Content-Type', 'application/json')

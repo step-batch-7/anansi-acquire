@@ -132,10 +132,6 @@ const updateGamePage = function(data){
   showAllPlayersProfile(data.playersProfile);
   showStatus(data.player.statusMsg);
   showActivityLog(data.activity);
-  if(data.turn === 'yourTurn'){
-    return clearInterval(update);
-  }
-  update = startInterval();
 };
 
 const startInterval = function(){
@@ -155,6 +151,6 @@ const main = function(){
   sentUpdateReq(updateGamePage);
 };
 
-let update = startInterval();
+const update = startInterval();
 
 window.onload = main;
