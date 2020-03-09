@@ -38,3 +38,7 @@ body {
   margin: 0%;
   margin-top: 5%;
 }
+
+#loader > img {
+  height: 5rem;
+}
