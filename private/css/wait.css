@@ -30,3 +30,11 @@ body {
   font-size: 1.5rem;
 }
 
+#players {
+  margin-top: 5%;
+}
+
+#status {
+  margin: 0%;
+  margin-top: 5%;
+}
