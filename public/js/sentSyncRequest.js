@@ -1,14 +1,7 @@
-const sentUpdateReq = function(callback){
-  const timeInterval = 3000;
-  sentHttpReq('/update', callback);
-  setInterval(() => sentHttpReq('/update', callback), timeInterval);
-
-};
-
 const sentPostReq = function(url, request, callback){
   fetch(url, request).then(res => res.json()).then(data => callback(data));
 };
 
-const sentHttpReq = function(url, callback){
+const sentGetReq = function(url, callback){
   fetch(url).then(res => res.json()).then(data => callback(data));
 };

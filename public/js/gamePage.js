@@ -80,8 +80,8 @@ const showProfileName = function(name){
 
 const createProfile = function(name, id){
   return `<div class="profile" id="player${id}">
-    <div class="name">${name}</div>
-    <img src="images/man.svg" alt="" />
+    <div>${name}</div>
+    <img src="images/profile.png" alt="" />
     </div>`;
 };
 
@@ -132,11 +132,29 @@ const updateGamePage = function(data){
   showAllPlayersProfile(data.playersProfile);
   showStatus(data.player.statusMsg);
   showActivityLog(data.activity);
+  if(data.turn === 'yourTurn'){
+    return clearInterval(update);
+  }
+  update = startInterval();
+};
+
+const startInterval = function(){
+  const timeInterval = 3000;
+  return setInterval(
+    () => sentGetReq('/update', updateGamePage), timeInterval
+  );
+};
+
+const sentUpdateReq = function(callback){
+  sentGetReq('/update', callback);
+  showStatus('Welcome');
 };
 
 const main = function(){
   createBoard();
   sentUpdateReq(updateGamePage);
 };
+
+let update = startInterval();
 
 window.onload = main;

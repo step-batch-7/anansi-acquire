@@ -24,11 +24,11 @@ body {
 }
 
 .gameName {
-  width: 9%;
-  background: url('../images/title.svg');
+  width: 11%;
+  background: url(../images/title.png);
   background-size: cover;
-  margin-left: 1%;
-  margin-top: 0.1%;
+  margin-left: 0.5%;
+  margin-top: -0.2%;
 }
 
 #messageBox {
@@ -173,28 +173,27 @@ body {
 #card {
   grid-row: 42/90;
   grid-column: 125/171;
-  border: 1px solid black;
   position: relative;
 }
 
 #tabsHeading {
-  height: 6%;
-  border-bottom: 1px solid black;
+  height: 7%;
   display: flex;
   align-items: center;
 }
 
 .tabs {
-  border-right: 1px solid black;
   cursor: pointer;
   padding-left: 2.5%;
-  height: 84%;
+  height: 86%;
   padding-right: 2.5%;
   padding-top: 1%;
+  color: #0000009c;
+  font-size: 18px;
 }
 
 .selected{
-  background-color: #f6cce6;
+  background-color: rgb(245, 245, 245);
 }
 
 #activityLog>p{
@@ -206,7 +205,7 @@ body {
   height: 83%;
   width: 90%;
   padding: 5%;
-  background-color: white;
+  background-color: rgb(245, 245, 245);
 }
 
 .hideDiv {
@@ -228,10 +227,15 @@ body {
   text-align: center;
   width: 12%;
   height: 100%;
+  font-weight: 200;
 }
 
 .profile > img {
   height: 80%;
+}
+
+.currentPlayer{
+  font-weight: 800;
 }
 
 #tiles {
@@ -276,6 +280,10 @@ body {
   color: #0000009c;
 }
 
+.tableHeading {
+  background-color: whitesmoke;
+}
+
 table,
 td,
 tr {
@@ -285,6 +293,7 @@ tr {
 
 table tr td:first-child {
   border-right: 2px solid white;
+  text-transform: capitalize;
 }
 
 td {

@@ -44,7 +44,7 @@ describe('Game', () => {
             sackson: 0, 
             zeta: 0}
         },
-        statusMsg: 'it is your turn, place a tile'
+        statusMsg: 'It is your turn, place a tile'
       };
       assert.deepStrictEqual(game.getStatus(12).player, expected);
     });
