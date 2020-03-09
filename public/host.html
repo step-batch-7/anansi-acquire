@@ -15,7 +15,8 @@
     <br>
     <br>
     <form action="/hostGame" method="POST" class="form">
-      <div class="text-container">Name:<input type="text" name="name" required class="textbox"></div>
+      <div class="text-container"><label for="name" class="label">Name</label><br><input id="name" type="text" name="name" required >
+      </div>
       <div class="text-container"> No of players:
       <select name="noOfPlayers">
         <option name="noOfPlayers" value="3">3</option>
@@ -25,9 +26,8 @@
       </select>
     </div>
     <input
-        type="button"
+        type="submit"
         class="button"
-        onclick=""
         value="Host"
       />
     </form>
