@@ -106,13 +106,13 @@ describe('Game', () => {
     });
   });
 
-  describe('getAllPlayersName', () => {
+  describe('getPlayerNames', () => {
     it('should give list of all players name', () => {
       const game = new Game(1, 2, []);
       game.addPlayer(12, 'test');
       game.addPlayer(13, 'test2');
       const expected = ['test', 'test2'];
-      assert.deepStrictEqual(game.getAllPlayersName(), expected);
+      assert.deepStrictEqual(game.getPlayerNames(), expected);
     });
   });
 });
