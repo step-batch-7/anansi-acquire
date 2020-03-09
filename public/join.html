@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/index.css" />
     <script src="js/join.js"></script>
-    <title>Join</title>
+    <title>Join Game</title>
   </head>
   <body>
     <div class="logo-container">
@@ -22,8 +22,13 @@
           Game id: <input type="text" name="gameId" id="id-textbox" />
         </div>
       </div>
-      <button onclick="joinInGame()" class="button">Join</button>
-      <a href="/" class="home-button">Home</a>
+      <input type="button" class="button" onclick="joinInGame()" value="Join" />
+      <input
+        type="button"
+        class="button"
+        onclick="location.href = 'index.html';"
+        value="Home"
+      />
     </div>
   </body>
 </html>
