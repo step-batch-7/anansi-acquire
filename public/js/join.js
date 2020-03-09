@@ -3,7 +3,9 @@ const startGame = function({isAnyError, msg}) {
     document.location = 'game/wait';
     return;
   }
-  document.querySelector('#error').innerText = msg;
+  const errorBox = document.querySelector('#error');
+  errorBox.innerText = msg;
+  errorBox.classList.remove('hide');
 };
 
 const joinInGame = function() {

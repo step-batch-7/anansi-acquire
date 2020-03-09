@@ -1,32 +1,28 @@
 body {
   width: 98vw;
-  height: 98vh;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+  height: 93vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.heading_img {
-  width: 40%;
-  height: 20%;
-  background: url(../images/title.svg);
-  background-size: cover;
-  margin: 0 auto;
-  margin-bottom: 7%;
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 3%;
+}
+.logo-container > img {
+  height: 30vh;
 }
 
 .box {
-  width: 25%;
-  height: 40%;
+  width: 20%;
   border: 1px solid black;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  padding-top: 5%;
+  padding: 1.5% 0%;
 }
 
-.options {
+/* .options {
   cursor: pointer;
   margin: 0 auto;
   width: 65%;
@@ -40,7 +36,7 @@ body {
   color: black;
   text-align: center;
   padding-top: 2%;
-}
+} */
 
 .options:hover {
   background-color: rgb(231, 231, 231);
@@ -53,5 +49,50 @@ body {
 }
 
 .text-container {
-  margin-bottom: 10px;
+  margin-bottom: 10%;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+#error {
+  align-self: center;
+  color: tomato;
+  font-size: 0.8rem;
+}
+
+#name-textbox,
+#id-textbox, .textbox {
+  border: 0px;
+  border-bottom: 1px solid #ccc;
+  font-size: 12px;
+}
+
+.button {
+  align-self: center;
+  font-size: 104%;
+  width: 39%;
+  background-color: #fffffe;
+}
+
+.home-button {
+  align-self: center;
+  text-decoration: none;
+  margin-top: 6%;
+  color: black;
+  border: 1px solid #ccc;
+  padding: 1% 12% 1% 12%;
+}
+
+.button:hover,
+.home-button:hover {
+  cursor: pointer;
+  background-color: whitesmoke;
+}
+
+.title {
+  align-self: center;
+  margin: 0;
+  font-size: 1.5rem;
 }

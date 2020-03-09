@@ -8,19 +8,20 @@
   <title>Join</title>
 </head>
 <body>
-  <div class="heading_img"></div>
+  <div class="logo-container"><img src="images/title.svg" alt=""></div>
   <div class="box">
-    <p id="error"></p>
+    <p class="title">Join a game</p>
+    <p id="error" class="hide">error</p>
     <div class="form">
       <div class="text-container">
-        Name: <input type="text" name="name" placeholder="Name" id="name-textbox">
+        Name: <input type="text" name="name" id="name-textbox">
       </div>
       <div class="text-container">
-        Game id: <input type="text" name="gameId" placeholder="Game id" id="id-textbox">
+        Game id: <input type="text" name="gameId" id="id-textbox">
       </div>
-      <button onclick="joinInGame()">Join</button>
-  </div>
-    <a href="/">Home</a>
+    </div>
+    <button onclick="joinInGame()" class="button">Join</button>
+    <a href="/" class="home-button">Home</a>
   </div>
 </body>
 </html>

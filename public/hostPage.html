@@ -6,27 +6,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Host Game</title>
   <link rel="stylesheet" href="css/index.css" />
-  <link rel="stylesheet" href="css/hostPage.css">
+  <!-- <link rel="stylesheet" href="css/hostPage.css"> -->
 </head>
 
 <body>
-  <div class="heading_img"></div>
+  <div class="logo-container"><img src="images/title.svg" alt=""></div>
   <div class="box">
-    <form action="/hostGame" method="POST">
-      <label for="name">Name:</label>
-      <input type="text" name="name" required>
-      <br>
-      <label for="noOfPlayers">No of players:</label>
+    <p class="title">Host a game</p>
+    <br>
+    <br>
+    <form action="/hostGame" method="POST" class="form">
+      <div class="text-container">Name:<input type="text" name="name" required class="textbox"></div>
+      <div class="text-container"> No of players:
       <select name="noOfPlayers">
         <option name="noOfPlayers" value="3">3</option>
         <option name="noOfPlayers" value="4">4</option>
         <option name="noOfPlayers" value="5">5</option>
         <option name="noOfPlayers" value="6">6</option>
       </select>
-      <br>
-      <input type="submit" value="Host" id="Host">
+    </div>
+      <button class="button">Host</button>
     </form>
-    <button id="Home" onclick="window.location.href='./index.html'">Home</button>
+    <a href="/" class="home-button">Home</a>
 </body>
 
 </html>
