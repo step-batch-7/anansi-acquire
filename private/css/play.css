@@ -251,10 +251,10 @@ body {
 .playersTile {
   cursor: pointer;
   width: 10%;
-  height: 65%;
+  height: 70%;
   font-size: 16px;
   text-align: center;
-  padding-top: 4%;
+  padding-top: 3%;
   background-color: #bab8b8;
   color: white;
   font-weight: 600;
