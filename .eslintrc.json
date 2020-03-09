@@ -118,7 +118,8 @@
     },
     {
       "files": [
-        "public/js/*.js"
+        "public/js/*.js",
+        "private/js/*.js"
       ],
       "rules": {
         "no-unused-vars": "off",
