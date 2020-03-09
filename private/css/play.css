@@ -37,22 +37,15 @@ body {
   margin-left: 10%;
   text-align: center;
   font-size: 20px;
+  color: tomato;
 }
 
 #playerName {
   width: 13%;
   font-size: 28px;
-  margin-left: 5%;
+  margin-left: 10%;
   text-align: right;
-  border-right: 1px solid;
   padding-right: 1%;
-}
-
-.header :last-child {
-  margin-top: 0.3%;
-  margin-left: 1%;
-  font-size: 24px;
-  color: tomato;
 }
 
 .tile {
@@ -256,6 +249,7 @@ body {
 }
 
 .playersTile {
+  cursor: pointer;
   width: 10%;
   height: 65%;
   font-size: 16px;

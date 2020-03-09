@@ -79,8 +79,8 @@ const showProfileName = function(name){
 };
 
 const createProfile = function(name, id){
-  return `<div class="profile" id="player${id}">
-    <div>${name}</div>
+  return `<div class="profile" >
+    <div id="player${id}">${name}</div>
     <img src="/images/profile.png" alt="" />
     </div>`;
 };
@@ -91,9 +91,15 @@ const createPlayersProfile = function(playersNames){
   ).join('');
 };
 
+const highlightCurrentPlayer = function(id){
+  const player = document.getElementById(`player${id}`);
+  player.classList.add('currentPlayer');
+};
+
 const showAllPlayersProfile = function(playersProfile){
   const playersBox = document.getElementById('players');
   playersBox.innerHTML = createPlayersProfile(playersProfile.allPlayersName);
+  highlightCurrentPlayer(playersProfile.currentPlayer);
 };
 
 const showStatus = function(status){

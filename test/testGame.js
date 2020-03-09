@@ -20,7 +20,7 @@ describe('Game', () => {
             sackson: 0, 
             zeta: 0}
         },
-        statusMsg: 'waiting for your turn'
+        statusMsg: 'Waiting for your turn'
       };
       assert.deepStrictEqual(game.getStatus(13).player, expected);
     });
@@ -100,7 +100,7 @@ describe('Game', () => {
             sackson: 0, 
             zeta: 0}
         },
-        statusMsg: 'waiting for your turn'
+        statusMsg: 'Waiting for your turn'
       };
       assert.deepStrictEqual(game.getPlayerStatus(13), expected);
     });
