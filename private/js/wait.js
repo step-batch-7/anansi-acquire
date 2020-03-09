@@ -5,9 +5,9 @@ const generateJoined = function(players) {
   return players.reduce((text, player) => text + `${player} ${template}\n`, '');
 };
 
-const displayStatus = function({isJoined, gameId, hosted, joined, remaining}) {
+const displayStatus = function({hasJoined, gameId, hosted, joined, remaining}) {
   const template = `hosted the game\n${generateJoined(joined)}`;
-  if(isJoined) {
+  if(hasJoined) {
     setTimeout(() => location.replace('play.html'), 2000);
     document.querySelector('#status').innerText = 'Starting the game';
   }
