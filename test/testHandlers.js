@@ -195,4 +195,59 @@ describe('POST', () => {
         .expect(400, done);
     });
   });
+
+  describe('/game', () => {
+    describe('/placeTile', () => {
+      it('should give status when a tile is placed by current player', done => {
+        app.locals.games = {123: {placeATile: () => true, getStatus: () => {
+          return {status: 'status'};
+        }
+        }};
+        app.locals.sessions = {
+          2: {gameId: 123, playerId: 3, location: '/play.html'}
+        };
+
+        request(app)
+          .post('/game/placeTile')
+          .set('Content-Type', 'application/json')
+          .set('Cookie', 'sessionId=2')
+          .set('referer', 'game/play.html')
+          .send({tile: '5A'})
+          .expect(200, done);
+      });
+
+      it('should not give status when tile is invalid', done => {
+        app.locals.games = {123: {placeATile: () => false, getStatus: () => {
+          return {status: 'status'};
+        }
+        }};
+        app.locals.sessions = {
+          2: {gameId: 123, playerId: 3, location: '/play.html'}
+        };
+
+        request(app)
+          .post('/game/placeTile')
+          .set('Content-Type', 'application/json')
+          .set('Cookie', 'sessionId=2')
+          .set('referer', 'game/play.html')
+          .send({tile: '5A'})
+          .expect(404, done);
+      });
+    });
+    describe('/update', () => {
+      it('should give status of the particular player', done => {
+        app.locals.games = {123: {getStatus: () => {
+          return {status: 'status'}; 
+        }}};
+        app.locals.sessions = {
+          2: {gameId: 123, playerId: 3, location: '/play.html'}
+        };
+        request(app)
+          .get('/game/update')
+          .set('Cookie', 'sessionId=2')
+          .set('referer', 'game/play.html')
+          .expect(200, done);
+      });
+    });
+  });
 });

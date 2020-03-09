@@ -68,17 +68,13 @@ describe('Game', () => {
     it('should move a tile from player\'s tile to placed tile', () => {
       const game = new Game(1, 1, []);
       game.addPlayer(12, 'test');
-      game.placeATile('5D');
-      const expected = ['8A', '5C', '9G', '5D'];
-      assert.deepStrictEqual(game.getStatus().placedTiles, expected );
+      assert.ok(game.placeATile('5D'));
     });
 
     it('should not move a tile from player\'s tile to placed tile', () => {
       const game = new Game(1, 1, []);
       game.addPlayer(12, 'test');
-      game.placeATile('5C');
-      const expected = ['8A', '5C', '9G'];
-      assert.deepStrictEqual(game.getStatus().placedTiles, expected );
+      assert.notOk(game.placeATile('5C'));
     });
   });
 
@@ -113,6 +109,13 @@ describe('Game', () => {
       game.addPlayer(13, 'test2');
       const expected = ['test', 'test2'];
       assert.deepStrictEqual(game.getPlayerNames(), expected);
+    });
+  });
+
+  describe('requiredPlayers', () => {
+    it('should give no of players require for the game', () => {
+      const game = new Game(1, 4, []);
+      assert.deepStrictEqual(game.requiredPlayers, 4);
     });
   });
 });
