@@ -1,7 +1,6 @@
 const startGame = function({isAnyError, msg}) {
   if (!isAnyError) {
-    document.location = 'game/wait';
-    return;
+    return location.replace('game/waiting');
   }
   const errorBox = document.querySelector('#error');
   errorBox.innerText = msg;

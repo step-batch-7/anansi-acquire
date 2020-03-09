@@ -5,22 +5,21 @@ const generateJoined = function(players) {
   return players.reduce((text, player) => text + `${player} ${template}\n`, '');
 };
 
-const displayStatus = function({hasJoined, gameId, hosted, joined, remaining}) {
-  const template = `hosted the game\n${generateJoined(joined)}`;
+const displayStatus = function({hasJoined, joined, remaining}) {
+  const template = generateJoined(joined);
   if(hasJoined) {
     setTimeout(() => location.replace('play.html'), 2000);
     document.querySelector('#status').innerText = 'Starting the game';
   }
-  document.querySelector('#gameId').innerText = gameId;
-  document.querySelector('#players').innerText = `${hosted} ${template}`;
+  document.querySelector('#players').innerText = `\n${template}`;
   document.querySelector('#remaining').innerText = remaining;
 };
 
-const getStatus = function() {
-  fetch('wait')
+const fetchData = function(url, callback) {
+  fetch(url)
     .then(res => res.json())
-    .then(displayStatus);
+    .then(callback);
 };
 
-getStatus();
-window.onload = () => setInterval(getStatus, seconds);
+fetchData('wait', displayStatus);
+window.onload = () => setInterval(fetchData, seconds, 'wait', displayStatus);
