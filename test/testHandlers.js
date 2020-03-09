@@ -22,10 +22,10 @@ describe('GET', () => {
     });
   });
 
-  describe('/hostPage.html', () => {
-    it('Should give hostPage.html for /hostPage.html', done => {
+  describe('/host.html', () => {
+    it('Should give host.html for /host.html', done => {
       request(app)
-        .get('/hostPage.html')
+        .get('/host.html')
         .expect(200)
         .expect('Content-type', /html/)
         .expect(/No of players/, done);
@@ -58,7 +58,7 @@ describe('GET', () => {
 
     it('should direct to / for not joined user access "/game"', done => {
       request(app)
-        .get('/game')
+        .get('/game/')
         .expect(302)
         .expect('Location', '/', done);
     });
@@ -70,6 +70,7 @@ describe('GET', () => {
       request(app)
         .get('/game/wait.html')
         .set('Cookie', 'sessionId=2')
+        .set('referer', 'http://localhost:8000/game/wait.html')
         .expect(200)
         .expect('Content-Type', /html/, done);
     });
@@ -79,8 +80,9 @@ describe('GET', () => {
         2: {gameId: 1, playerId: 3, location: '/wait.html'}
       };
       request(app)
-        .get('/game')
+        .get('/game/')
         .set('Cookie', 'sessionId=2')
+        .set('referer', 'http://localhost:8000/game/wait.html')
         .expect(302)
         .expect('Location', '/game/wait.html', done);
     });

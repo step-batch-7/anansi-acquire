@@ -1,0 +1,32 @@
+body {
+  width: 98vw;
+  height: 93vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 3%;
+}
+
+.logo-container > img {
+  height: 30vh;
+}
+
+.box {
+  width: 24%;
+  border: 1px solid black;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5%;
+  align-items: center;
+}
+
+.title {
+  align-self: center;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
