@@ -1,4 +1,4 @@
-const seconds = 1000;
+const updateTime = 2000;
 
 const generateJoined = function(players) {
   const template = 'joined the game';
@@ -22,4 +22,4 @@ const fetchData = function(url, callback) {
 };
 
 fetchData('wait', displayStatus);
-window.onload = () => setInterval(fetchData, seconds, 'wait', displayStatus);
+window.onload = () => setInterval(fetchData, updateTime, 'wait', displayStatus);

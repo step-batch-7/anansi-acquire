@@ -228,7 +228,7 @@ describe('POST', () => {
 
     it('should give Game started msg for ongoing game', done => {
       const body = JSON.stringify({name: 'john', gameId: '1234'});
-      const expected = {isAnyError: true, msg: 'The game already started'};
+      const expected = {isAnyError: true, msg: 'The game has already started'};
       const expectedJson = JSON.stringify(expected);
       app.locals.games = {1234: {hasAllPlayerJoined: () => true}};
       request(app)
