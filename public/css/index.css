@@ -7,10 +7,10 @@ body {
 .logo-container {
   display: flex;
   justify-content: center;
-  margin-top: 3%;
+  margin: 3% 0%;
 }
 .logo-container > img {
-  height: 30vh;
+  height: 22vh;
 }
 
 .box {
