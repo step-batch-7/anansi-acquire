@@ -141,14 +141,9 @@ const startInterval = function(){
   );
 };
 
-const sentUpdateReq = function(callback){
-  sentGetReq('update', callback);
-  showStatus('Welcome');
-};
-
 const main = function(){
   createBoard();
-  sentUpdateReq(updateGamePage);
+  sentGetReq('update', updateGamePage);
 };
 
 const update = startInterval();
