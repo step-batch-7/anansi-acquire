@@ -9,14 +9,13 @@
 </head>
 
 <body>
-  <div class="logo-container"><img src="images/acquireWithoutBg.png" alt=""></div>
+  <div class="logo-container"><img src="images/title.png" alt=""></div>
   <div class="box">
     <p class="title">Host a game</p>
     <br>
     <br>
     <form action="/hostGame" method="POST" class="form">
-      <div class="text-container"><label for="name" class="label">Name</label><br><input id="name" type="text" name="name" required >
-      </div>
+      <div class="text-container">Name:<input type="text" name="name" required class="textbox"></div>
       <div class="text-container"> No of players:
       <select name="noOfPlayers">
         <option name="noOfPlayers" value="3">3</option>
@@ -25,19 +24,9 @@
         <option name="noOfPlayers" value="6">6</option>
       </select>
     </div>
-    <input
-        type="submit"
-        class="button"
-        value="Host"
-      />
+      <button class="button">Host</button>
     </form>
-    
-      <input
-        type="button"
-        class="button"
-        onclick="location.href = 'index.html';"
-        value="Home"
-      />
+    <a href="/" class="home-button">Home</a>
 </body>
 
 </html>

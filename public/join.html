@@ -1,42 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/index.css" />
-    <script src="js/join.js"></script>
-    <title>Join Game</title>
-  </head>
-  <body>
-    <div class="logo-container">
-      <img src="images/acquireWithoutBg.png" alt="" />
-    </div>
-    <div class="box">
-      <p class="title">Join a game</p>
-      <p id="error" class="hide">error</p>
-      <div class="form">
-        <div class="text-container">
-          <label for="name-textbox">Name</label><br /><input
-            type="text"
-            name="name"
-            id="name-textbox"
-          />
-        </div>
-        <div class="text-container">
-          <label for="id-textbox">Game id</label><br /><input
-            type="text"
-            name="gameId"
-            id="id-textbox"
-          />
-        </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/index.css">
+  <script src="js/join.js"></script>
+  <title>Join</title>
+</head>
+<body>
+  <div class="logo-container"><img src="images/title.png" alt=""></div>
+  <div class="box">
+    <p class="title">Join a game</p>
+    <p id="error" class="hide">error</p>
+    <div class="form">
+      <div class="text-container">
+        Name: <input type="text" name="name" id="name-textbox">
       </div>
-      <input type="button" class="button" onclick="joinInGame()" value="Join" />
-      <input
-        type="button"
-        class="button"
-        onclick="location.href = 'index.html';"
-        value="Home"
-      />
+      <div class="text-container">
+        Game id: <input type="text" name="gameId" id="id-textbox">
+      </div>
     </div>
-  </body>
+    <button onclick="joinInGame()" class="button">Join</button>
+    <a href="/" class="home-button">Home</a>
+  </div>
+</body>
 </html>
