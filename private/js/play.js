@@ -23,7 +23,7 @@ const createBoard = function() {
 
 const placeATile = function(tile){
   sentPostReq(
-    '/game/placeTile', 
+    'placeTile', 
     {
       method: 'POST', 
       headers: {'Content-Type': 'application/json'}, 
@@ -81,7 +81,7 @@ const showProfileName = function(name){
 const createProfile = function(name, id){
   return `<div class="profile" id="player${id}">
     <div>${name}</div>
-    <img src="images/profile.png" alt="" />
+    <img src="/images/profile.png" alt="" />
     </div>`;
 };
 
@@ -141,12 +141,12 @@ const updateGamePage = function(data){
 const startInterval = function(){
   const timeInterval = 3000;
   return setInterval(
-    () => sentGetReq('/update', updateGamePage), timeInterval
+    () => sentGetReq('update', updateGamePage), timeInterval
   );
 };
 
 const sentUpdateReq = function(callback){
-  sentGetReq('/update', callback);
+  sentGetReq('update', callback);
   showStatus('Welcome');
 };
 

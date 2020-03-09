@@ -25,7 +25,7 @@ body {
 
 .gameName {
   width: 11%;
-  background: url(../images/title.png);
+  background: url(/images/title.png);
   background-size: cover;
   margin-left: 0.5%;
   margin-top: -0.2%;
@@ -40,10 +40,12 @@ body {
 }
 
 #playerName {
-  width: 5%;
+  width: 13%;
   font-size: 28px;
-  margin-left: 14%;
+  margin-left: 5%;
+  text-align: right;
   border-right: 1px solid;
+  padding-right: 1%;
 }
 
 .header :last-child {
