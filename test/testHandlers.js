@@ -49,65 +49,118 @@ describe('GET', () => {
   });
 
   describe('/game', () => {
-    it('should direct to / if not joined user access /game/wait.html', done => {
+    it('should direct to / if not joined user access /game/waiting', done => {
       request(app)
-        .get('/game/wait.html')
+        .get('/game/waiting')
         .expect(302)
         .expect('Location', '/', done);
     });
 
     it('should direct to / for not joined user access "/game"', done => {
       request(app)
-        .get('/game/')
+        .get('/game')
         .expect(302)
         .expect('Location', '/', done);
     });
 
-    it('should give wait.html if waiting user access /game/wait.html', done => {
+    it('should give waiting if waiting user access /game/waiting', done => {
       app.locals.sessions = {
-        2: {gameId: 1, playerId: 3, location: '/wait.html'}
+        2: {gameId: 1, playerId: 3, location: '/waiting'}
       };
+      app.locals.games = {1: {getPlayerNames: () => ['ram']}};
       request(app)
-        .get('/game/wait.html')
+        .get('/game/waiting')
         .set('Cookie', 'sessionId=2')
-        .set('referer', 'http://localhost:8000/game/wait.html')
         .expect(200)
         .expect('Content-Type', /html/, done);
     });
 
-    it('should direct to /game/wait.html waiting user access /game', done => {
+    it('should direct to /game/waiting for waiting user access /game', done => {
       app.locals.sessions = {
-        2: {gameId: 1, playerId: 3, location: '/wait.html'}
+        2: {gameId: 1, playerId: 3, location: '/waiting'}
       };
+      app.locals.games = {1: {getPlayerNames: () => ['ram']}};
       request(app)
-        .get('/game/')
+        .get('/game')
         .set('Cookie', 'sessionId=2')
-        .set('referer', 'http://localhost:8000/game/wait.html')
         .expect(302)
-        .expect('Location', '/game/wait.html', done);
+        .expect('Location', '/game/waiting', done);
     });
 
-    it('should direct to /game/wait.html for waiting user access /', done => {
+    it('should direct to /game/waiting for waiting user access /', done => {
       app.locals.sessions = {
-        2: {gameId: 1, playerId: 3, location: '/wait.html'}
+        2: {gameId: 1, playerId: 3, location: '/waiting'}
       };
       request(app)
         .get('/')
         .set('Cookie', 'sessionId=2')
         .expect(302)
-        .expect('Location', '/game/wait.html', done);
+        .expect('Location', '/game/waiting', done);
     });
 
-    it('should direct to /game/wait.html waiting user access /join', done => {
+    it('should direct to /game/waiting waiting user access /join', done => {
       app.locals.sessions = {
-        2: {gameId: 1, playerId: 3, location: '/wait.html'}
+        2: {gameId: 1, playerId: 3, location: '/waiting'}
       };
       request(app)
         .get('/join.html')
         .set('Cookie', 'sessionId=2')
         .expect(302)
-        .expect('Location', '/game/wait.html', done);
+        .expect('Location', '/game/waiting', done);
     });
+  });
+  
+  describe('/game/waiting', () => {
+    it('should give waiting page replaced with gameId and hosted for /game/waiting', done => {
+      app.locals.sessions = {
+        2: {gameId: 1441, playerId: 3, location: '/waiting'}
+      };
+      app.locals.games = {1441: {getPlayerNames: () => ['ram']}};
+      request(app)
+        .get('/game/waiting')
+        .set('Cookie', 'sessionId=2')
+        .expect(200)
+        .expect(/1441/, done);
+    });
+  });
+  it('should give the hasJoined false if all players join /game/wait', done => {
+    app.locals.sessions = {
+      2: {gameId: 1441, playerId: 3, location: '/waiting'}
+    };
+    app.locals.games = {
+      1441: {
+        getPlayerNames: () => ['ram'],
+        hasAllPlayerJoined: () => false,
+        requiredPlayers: 3
+      }
+    };
+    const expected = {hasJoined: false, joined: [], remaining: 2};
+    request(app)
+      .get('/game/wait')
+      .set('Cookie', 'sessionId=2')
+      .set('referer', 'game/waiting')
+      .expect(200)
+      .expect(JSON.stringify(expected), done);
+  });
+
+  it('should give the hasJoined true if all players join /game/wait', done => {
+    app.locals.sessions = {
+      2: {gameId: 1441, playerId: 3, location: '/waiting'}
+    };
+    app.locals.games = {
+      1441: {
+        getPlayerNames: () => ['ram', 'anu', 'sid'],
+        hasAllPlayerJoined: () => true,
+        requiredPlayers: 3
+      }
+    };
+    const expected = {hasJoined: true, joined: ['anu', 'sid'], remaining: 0};
+    request(app)
+      .get('/game/wait')
+      .set('Cookie', 'sessionId=2')
+      .set('referer', 'game/waiting')
+      .expect(200)
+      .expect(JSON.stringify(expected), done);
   });
 });
 
