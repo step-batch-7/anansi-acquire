@@ -4,7 +4,7 @@ const Game = require('../lib/models/game');
 
 describe('Game', () => {
   describe('addPlayer', () => {
-    it('should add a player with the given id and name', () => {
+    it('should add a player with the given id, name and unique tiles', () => {
       const fake = sinon.fake.returns(0);
       sinon.replace(Math, 'floor', fake);
       const game = new Game(1, 2);
@@ -28,6 +28,10 @@ describe('Game', () => {
         statusMsg: 'Waiting for your turn'
       };
       assert.deepStrictEqual(game.getStatus(13).player, expected);
+
+      const firstPlayerTiles = game.getStatus(12).player.assets.tiles;
+      const secondPlayerTiles = game.getStatus(13).player.assets.tiles;
+      assert.notDeepEqual(firstPlayerTiles, secondPlayerTiles);
       sinon.restore();
     });
   });
