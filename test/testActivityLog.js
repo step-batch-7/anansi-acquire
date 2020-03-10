@@ -6,8 +6,7 @@ describe('ActivityLog', () => {
     it('should add a given log ', () => {
       const activityLog = new ActivityLog();
       activityLog.addLog('normal', 'test');
-      const expected = [
-        {type: 'tilePlaced', text: 'Placed Initial Tiles'}, 
+      const expected = [ 
         {type: 'normal', text: 'test'}
       ];
       assert.deepStrictEqual(activityLog.logs, expected);
