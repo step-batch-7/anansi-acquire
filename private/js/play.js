@@ -144,12 +144,15 @@ const updateGamePage = function(data){
   showAllPlayersProfile(data.playersProfile);
   showStatus(data.player.statusMsg);
   showActivityLog(data.activity);
+  if(!data.player.turn){
+    startTimeout();
+  }
 };
 
-const startInterval = function(){
-  const timeInterval = 3000;
-  return setInterval(
-    () => sentGetReq('update', updateGamePage), timeInterval
+const startTimeout = function(){
+  const time = 3000;
+  return setTimeout(
+    () => sentGetReq('update', updateGamePage), time
   );
 };
 
@@ -157,7 +160,5 @@ const main = function(){
   createBoard();
   sentGetReq('update', updateGamePage);
 };
-
-const update = startInterval();
 
 window.onload = main;

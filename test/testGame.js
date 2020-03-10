@@ -3,10 +3,13 @@ const sinon = require('sinon');
 const Game = require('../lib/models/game');
 
 describe('Game', () => {
+  before(() => {
+    const fake = sinon.fake.returns(0);
+    sinon.replace(Math, 'floor', fake);
+  });
+  after(() => sinon.restore());
   describe('addPlayer', () => {
     it('should add a player with the given id, name and unique tiles', () => {
-      const fake = sinon.fake.returns(0);
-      sinon.replace(Math, 'floor', fake);
       const game = new Game(1, 2);
       game.addPlayer(12, 'test');
       game.addPlayer(13, 'test2');
@@ -25,21 +28,19 @@ describe('Game', () => {
             zeta: 0
           }
         },
-        statusMsg: 'Waiting for your turn'
+        statusMsg: 'Waiting for your turn',
+        turn: false
       };
       assert.deepStrictEqual(game.getStatus(13).player, expected);
 
       const firstPlayerTiles = game.getStatus(12).player.assets.tiles;
       const secondPlayerTiles = game.getStatus(13).player.assets.tiles;
       assert.notDeepEqual(firstPlayerTiles, secondPlayerTiles);
-      sinon.restore();
     });
   });
 
   describe('setCurrentPlayerStatus', () => {
     it('should set current player status', () => {
-      const fake = sinon.fake.returns(0);
-      sinon.replace(Math, 'floor', fake);
       const game = new Game(1, 1);
       game.addPlayer(12, 'test');
       game.setCurrentPlayerStatus();
@@ -58,10 +59,10 @@ describe('Game', () => {
             zeta: 0
           }
         },
-        statusMsg: 'It is your turn, place a tile'
+        statusMsg: 'It is your turn, place a tile',
+        turn: false
       };
       assert.deepStrictEqual(game.getStatus(12).player, expected);
-      sinon.restore();
     });
   });
 
@@ -80,13 +81,6 @@ describe('Game', () => {
   });
 
   describe('placeATile', () => {
-    beforeEach(() => {
-      const fake = sinon.fake.returns(0);
-      sinon.replace(Math, 'floor', fake);
-    });
-
-    afterEach(() => sinon.restore());
-
     it('should move a tile from player\'s tile to placed tile', () => {
       const game = new Game(1, 1);
       game.addPlayer(12, 'test');
@@ -102,8 +96,6 @@ describe('Game', () => {
 
   describe('getPlayerStatus', () => {
     it('should give player status of given id', () => {
-      const fake = sinon.fake.returns(0);
-      sinon.replace(Math, 'floor', fake);
       const game = new Game(1, 2);
       game.addPlayer(12, 'test');
       game.addPlayer(13, 'test2');
@@ -122,10 +114,10 @@ describe('Game', () => {
             zeta: 0
           }
         },
-        statusMsg: 'Waiting for your turn'
+        statusMsg: 'Waiting for your turn',
+        turn: false
       };
       assert.deepStrictEqual(game.getPlayerStatus(13), expected);
-      sinon.restore();
     });
   });
 
