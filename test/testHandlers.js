@@ -111,7 +111,7 @@ describe('GET', () => {
   });
   
   describe('/game/waiting', () => {
-    it('should give waiting page replaced with gameId and hosted for /game/waiting', done => {
+    it('should give waiting page for hosted user in /game/waiting', done => {
       app.locals.sessions = {
         2: {gameId: 1441, playerId: 3, location: '/waiting'}
       };
