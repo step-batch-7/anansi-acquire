@@ -36,7 +36,7 @@ describe('Game', () => {
     it('should set current player status', () => {
       const fake = sinon.fake.returns(0);
       sinon.replace(Math, 'floor', fake);
-      const game = new Game(1, 1, []);
+      const game = new Game(1, 1);
       game.addPlayer(12, 'test');
       game.setCurrentPlayerStatus();
       const expected = {
@@ -63,13 +63,13 @@ describe('Game', () => {
 
   describe('hasAllPlayerJoined', () => {
     it('should give true when all players has joined', () => {
-      const game = new Game(1, 1, []);
+      const game = new Game(1, 1);
       game.addPlayer(12, 'test');
       assert.ok(game.hasAllPlayerJoined());
     });
 
     it('should give false when all players has not joined', () => {
-      const game = new Game(1, 3, []);
+      const game = new Game(1, 3);
       game.addPlayer(12, 'test');
       assert.notOk(game.hasAllPlayerJoined());
     });
@@ -100,7 +100,7 @@ describe('Game', () => {
     it('should give player status of given id', () => {
       const fake = sinon.fake.returns(0);
       sinon.replace(Math, 'floor', fake);
-      const game = new Game(1, 2, []);
+      const game = new Game(1, 2);
       game.addPlayer(12, 'test');
       game.addPlayer(13, 'test2');
       const expected = {
@@ -127,7 +127,7 @@ describe('Game', () => {
 
   describe('getPlayerNames', () => {
     it('should give list of all players name', () => {
-      const game = new Game(1, 2, []);
+      const game = new Game(1, 2);
       game.addPlayer(12, 'test');
       game.addPlayer(13, 'test2');
       const expected = ['test', 'test2'];
@@ -137,7 +137,7 @@ describe('Game', () => {
 
   describe('requiredPlayers', () => {
     it('should give no of players require for the game', () => {
-      const game = new Game(1, 4, []);
+      const game = new Game(1, 4);
       assert.deepStrictEqual(game.requiredPlayers, 4);
     });
   });
