@@ -201,6 +201,7 @@ body {
   width: 90%;
   padding: 5%;
   background-color: rgb(245, 245, 245);
+  overflow-y: scroll;
 }
 
 .hideDiv {
@@ -225,12 +226,20 @@ body {
   font-weight: 200;
 }
 
-.profile > img {
+.profileImage {
   height: 80%;
+  background: url(/images/profile.png) no-repeat center;
+  background-size: contain;
 }
 
 .currentPlayer{
   font-weight: 800;
+}
+
+.currentProfile{
+  height: 80%;
+  background: url(/images/profileSel.png) no-repeat center;
+  background-size: contain;
 }
 
 #tiles {

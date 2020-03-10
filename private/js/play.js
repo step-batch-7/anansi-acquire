@@ -65,7 +65,7 @@ const createTile = function(tile){
 };
 
 const createTileSets = function(tiles){
-  return tiles.map(tile => createTile(tile)).join('');
+  return tiles.map(createTile).join('');
 };
 
 const showPlayerAssets = function(assets){
@@ -85,21 +85,20 @@ const showProfileName = function(name){
 };
 
 const createProfile = function(name, id){
-  return `<div class="profile" >
-    <div id="player${id}">${name}</div>
-    <img src="/images/profile.png" alt="" />
+  return `<div class="profile" id="player${id}" >
+    <div >${name}</div>
+    <div class='profileImage'></div>
     </div>`;
 };
 
 const createPlayersProfile = function(playersNames){
-  return playersNames.map(
-    (playerName, id) => createProfile(playerName, id)
-  ).join('');
+  return playersNames.map(createProfile).join('');
 };
 
 const highlightCurrentPlayer = function(id){
-  const player = document.getElementById(`player${id}`);
-  player.classList.add('currentPlayer');
+  const profile = document.getElementById(`player${id}`);
+  profile.firstElementChild.classList.add('currentPlayer');
+  profile.lastElementChild.className = 'currentProfile';
 };
 
 const showAllPlayersProfile = function(playersProfile){
@@ -123,12 +122,12 @@ const showCardBody = function(card, tab) {
   tab.classList.add('selected');
 };
 
-const createActivityRow = function({type, text}){
+const createActivityRow = function({text}){
   return `<p>${text}</p>`;
 };
 
 const createActivityLog = function(activities){
-  return activities.map(activity => createActivityRow(activity)).join('');
+  return activities.map(createActivityRow).join('');
 };
 
 const showActivityLog = function(activities){
