@@ -119,7 +119,8 @@
     {
       "files": [
         "public/js/*.js",
-        "private/js/*.js"
+        "private/js/*.js",
+        "lib/models/*.js"
       ],
       "rules": {
         "no-unused-vars": "off",

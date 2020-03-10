@@ -20,15 +20,15 @@ describe('Player', () => {
   describe('removeTile', () => {
     it('should remove a tile from player\'s tiles', () => {
       const player = new Player(123, 'test');
-      const expected = ['6C', '8F', '2D', '10I', '12E'];
-      assert.deepStrictEqual(player.removeTile('5D'), '5D');
+      const expected = [18, 39, 63, 76, 25];
+      assert.deepStrictEqual(player.removeTile(5), 5);
       assert.deepStrictEqual(player.getStatus().assets.tiles, expected);
     });
 
     it('should not remove a tile from player\'s tiles if not present', () => {
       const player = new Player(123, 'test');
-      const expected = ['5D', '6C', '8F', '2D', '10I', '12E'];
-      assert.notOk(player.removeTile('5C'));
+      const expected = [5, 18, 39, 63, 76, 25];
+      assert.notOk(player.removeTile(6));
       assert.deepStrictEqual(player.getStatus().assets.tiles, expected);
     });
   });

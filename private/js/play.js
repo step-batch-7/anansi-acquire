@@ -1,24 +1,29 @@
-const createTileOnBoard = function(number, alphabets){
+const createTileOnBoard = function(num, tileValue){
   const board = document.getElementById('board');
   const tile = document.createElement('div');
   tile.classList.add('tile');
-  tile.innerText = `${number}${alphabets}`;
-  tile.id = `${number}${alphabets}`;
+  tile.innerText = tileValue;
+  tile.id = num;
   board.appendChild(tile);
 };
 
 const createBoard = function() {
   const totalTiles = 108;
+  for (let index = 0; index < totalTiles; index++) {
+    const tile = tileGenerator(index);
+    createTileOnBoard(index, tile);
+  }
+};
+
+const tileGenerator = function(num){
   const firstCharCode = 64;
   const columnNo = 12;
-  for (let index = 0; index < totalTiles; index++) {
-    let number = index % columnNo;
-    number++;
-    let increment = Math.floor(index / columnNo);
-    increment++;
-    const alphabet = String.fromCharCode(firstCharCode + increment);
-    createTileOnBoard(number, alphabet);
-  }
+  let number = num % columnNo;
+  number++;
+  let increment = Math.floor(num / columnNo);
+  increment++;
+  const alphabet = String.fromCharCode(firstCharCode + increment);
+  return `${number}${alphabet}`;
 };
 
 const placeATile = function(tile){
@@ -27,7 +32,7 @@ const placeATile = function(tile){
     {
       method: 'POST', 
       headers: {'Content-Type': 'application/json'}, 
-      body: JSON.stringify({tile: tile.innerText})
+      body: JSON.stringify({tile})
     },
     updateGamePage
   );
@@ -54,12 +59,13 @@ const showCorpInfo = function(corpInfo){
   }
 };
 
-const createTile = function(text){
-  return `<div class="playersTile" onclick="placeATile(this)">${text}</div>`;
+const createTile = function(tile){
+  const text = tileGenerator(tile);
+  return `<div class="playersTile" onclick="placeATile(${tile})">${text}</div>`;
 };
 
 const createTileSets = function(tiles){
-  return tiles.map(tileName => createTile(tileName)).join('');
+  return tiles.map(tile => createTile(tile)).join('');
 };
 
 const showPlayerAssets = function(assets){

@@ -10,7 +10,7 @@ describe('Game', () => {
       const expected = {name: 'test2',
         assets: {
           money: 6000,
-          tiles: ['5D', '6C', '8F', '2D', '10I', '12E'],
+          tiles: [5, 18, 39, 63, 76, 25],
           stocks: {
             phoenix: 0,
             quantum: 0, 
@@ -34,7 +34,7 @@ describe('Game', () => {
       const expected = {name: 'test',
         assets: {
           money: 6000,
-          tiles: ['5D', '6C', '8F', '2D', '10I', '12E'],
+          tiles: [5, 18, 39, 63, 76, 25],
           stocks: {
             phoenix: 0,
             quantum: 0, 
@@ -68,7 +68,7 @@ describe('Game', () => {
     it('should move a tile from player\'s tile to placed tile', () => {
       const game = new Game(1, 1, []);
       game.addPlayer(12, 'test');
-      assert.ok(game.placeATile('5D'));
+      assert.ok(game.placeATile(5));
     });
 
     it('should not move a tile from player\'s tile to placed tile', () => {
@@ -86,7 +86,7 @@ describe('Game', () => {
       const expected = {name: 'test2',
         assets: {
           money: 6000,
-          tiles: ['5D', '6C', '8F', '2D', '10I', '12E'],
+          tiles: [5, 18, 39, 63, 76, 25],
           stocks: {
             phoenix: 0,
             quantum: 0, 
