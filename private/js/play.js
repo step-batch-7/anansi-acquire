@@ -85,10 +85,10 @@ const showCorpInfo = function(corpInfo) {
     const corpRow = document.getElementById(corp);
     corpRow.innerHTML = `<td>${corp}</td>
       <td>${corpInfo[corp].stocks}</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>`;
+      <td>${corpInfo[corp].price}</td>
+      <td>${corpInfo[corp].area}</td>
+      <td>${corpInfo[corp].majority}</td>
+      <td>${corpInfo[corp].minority}</td>`;
   }
 };
 
