@@ -176,7 +176,7 @@ const showActivityLog = function(activities) {
 const place = function(tiles, corporation) {
   tiles.forEach(tile => {
     const cssClass = `${corporation}_color`;
-    document.querySelector(`div[id="${tile}"]`).classList.add(cssClass);
+    document.querySelector(`div[id="${tile}"]`).className = `tile ${cssClass}`;
   });
 };
 
@@ -197,7 +197,7 @@ const handleEstablishAction = function({groups, availableCorporations}) {
 const handleAction = function({status, action}) {
   updateGamePage(status);
   const actions = {establish: handleEstablishAction};
-  if (action.state === 'wait') {
+  if (action.state === 'wait' || action.state === 'placeTile') {
     document.querySelector('#actions').classList.add('hideDiv');
     document.querySelector('#action-tab').classList.add('hideDiv');
     const activity = document.querySelector('#activity-tab');
