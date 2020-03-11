@@ -40,4 +40,30 @@ describe('Corporations', () => {
       assert.deepStrictEqual(corporations.getInactiveCorporate(), expected);
     });
   });
+
+  describe('getMajorityOfCorp', () => {
+    it('should give the majority of the given corporate', () => {
+      const corporations = new Corporations();
+      assert.deepStrictEqual(corporations.getMajorityOfCorp('zeta'), 0);
+    });
+  });
+
+  describe('getMinorityOfCorp', () => {
+    it('should give the majority of the given corporate', () => {
+      const corporations = new Corporations();
+      assert.deepStrictEqual(corporations.getMinorityOfCorp('zeta'), 0);
+    });
+  });
+
+  describe('removeStocks', () => {
+    it('should remove the number of stocks of the given corporate', () => {
+      const corporations = new Corporations();
+      assert.ok(corporations.removeStocks('zeta', 1));
+    });
+
+    it('should not remove stocks of the given corp if no stock available', () => {
+      const corporations = new Corporations();
+      assert.notOk(corporations.removeStocks('zeta', 26));
+    });
+  });
 });
