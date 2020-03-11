@@ -26,9 +26,6 @@ const tileGenerator = function(num) {
   return `${number}${alphabet}`;
 };
 
-<<<<<<< HEAD
-const placeATile = function(tile) {
-=======
 const establish = (id, groups, corporation) => {
   const unincorporatedGroups = JSON.parse(groups);
   const clicked = unincorporatedGroups.find(group => group.includes(+id));
@@ -57,7 +54,6 @@ const generateEstablishActions = function(groups, corporations) {
 };
 
 const placeATile = function(tile){
->>>>>>> |#18|Abhilash/Deepika| Added feature to establish a corporation
   sentPostReq(
     'placeTile',
     {
@@ -169,9 +165,6 @@ const showActivityLog = function(activities) {
   activityCard.innerHTML = createActivityLog(activities);
 };
 
-<<<<<<< HEAD
-const updateGamePage = function(data) {
-=======
 const handleEstablishAction = function({groups, availableCorporations}) {
   const actionTab = document.querySelector('#action-tab');
   showCardBody('actions', actionTab);
@@ -191,7 +184,6 @@ const handleAction = function({status, action}){
 };
 
 const updateGamePage = function(data){
->>>>>>> |#18|Abhilash/Deepika| Added feature to establish a corporation
   addPlacedTilesOnBoard(data.placedTiles);
   showCorpInfo(data.infoTable);
   showPlayerAssets(data.player.assets);
@@ -206,13 +198,9 @@ const updateGamePage = function(data){
 
 const startTimeout = function() {
   const time = 3000;
-<<<<<<< HEAD
-  return setTimeout(() => sentGetReq('update', updateGamePage), time);
-=======
   return setTimeout(
     () => sentGetReq('update', handleAction), time
   );
->>>>>>> |#18|Abhilash/Deepika| Added feature to establish a corporation
 };
 
 const main = function() {
