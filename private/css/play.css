@@ -306,10 +306,11 @@ td {
 }
 
 .ActivityIcon {
-  height: 3%;
-  width: 3%;
+  height: 5%;
+  width: 5%;
 }
 .activityDiv {
+  color: gray;
   font: inherit;
   margin: auto;
 }

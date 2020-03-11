@@ -28,7 +28,7 @@ describe('Game', () => {
             zeta: 0
           }
         },
-        statusMsg: 'Waiting for your turn',
+        statusMsg: 'Wait for your turn',
         turn: false
       };
       assert.deepStrictEqual(game.getStatus(13).status.player, expected);
@@ -114,7 +114,7 @@ describe('Game', () => {
             zeta: 0
           }
         },
-        statusMsg: 'Waiting for your turn',
+        statusMsg: 'Wait for your turn',
         turn: false
       };
       assert.deepStrictEqual(game.getPlayerStatus(13), expected);
