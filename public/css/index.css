@@ -74,7 +74,6 @@ button {
   position: relative;
   background: #f5f5f5;
   color: #626060;
-  box-shadow: 0 6px #c2bfbf;
   transition: none;
   width: 50%;
 }
@@ -82,8 +81,7 @@ button:hover {
   background: #ebe9e9;
 }
 button:active {
-  box-shadow: 0 4px #c2bfbf;
-  top: 2px;
+ background: #d6d5d5;
 }
 label {
   position: relative;
