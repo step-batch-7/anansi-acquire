@@ -14,7 +14,7 @@
     <p class="title">Host a game</p>
     <p id="error" class="hide">error</p>
     <form action="/hostGame" method="POST" class="form">
-      <div class="text-container">Name:<input type="text" name="name" required class="textbox"></div>
+      <div class="text-container"><label for="hostName">Name</label><input type="text" id='hostName' name="name" required class="textbox"></div>
       <div class="text-container"> No of players:
       <select name="noOfPlayers">
         <option name="noOfPlayers" value="3">3</option>
@@ -23,9 +23,12 @@
         <option name="noOfPlayers" value="6">6</option>
       </select>
     </div>
+
       <button class="button">Host</button>
     </form>
-    <a href="/" class="home-button">Home</a>
+    <button onclick="location.href = '/';" class="button">
+        Home
+      </button>
 </body>
 
 </html>

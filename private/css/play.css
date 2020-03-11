@@ -187,11 +187,11 @@ body {
   font-size: 18px;
 }
 
-.selected{
+.selected {
   background-color: rgb(245, 245, 245);
 }
 
-#activityLog>p{
+#activityLog > p {
   margin: 1%;
 }
 
@@ -232,11 +232,11 @@ body {
   background-size: contain;
 }
 
-.currentPlayer{
+.currentPlayer {
   font-weight: 800;
 }
 
-.currentProfile{
+.currentProfile {
   height: 80%;
   background: url(/images/profileSel.png) no-repeat center;
   background-size: contain;
@@ -252,7 +252,7 @@ body {
   color: #0000009c;
 }
 
-#tiles > p{
+#tiles > p {
   margin: 0;
   margin-bottom: 1%;
 }
@@ -303,4 +303,13 @@ table tr td:first-child {
 
 td {
   width: calc(100% / 6);
+}
+
+.ActivityIcon {
+  height: 3%;
+  width: 3%;
+}
+.activityDiv {
+  font: inherit;
+  margin: auto;
 }
