@@ -26,21 +26,29 @@ const tileGenerator = function(num) {
   return `${number}${alphabet}`;
 };
 
-const establish = (id, groups, corporation) => {
-  const unincorporatedGroups = JSON.parse(groups);
-  const clicked = unincorporatedGroups.find(group => group.includes(+id));
-  clicked.forEach(tile => {
-    const cssClass = `${corporation}_color`;
-    document.querySelector(`div[id="${tile}"]`).classList.add(cssClass);
-  });
+const establish = (tile, corporation) => {
+  sentPostReq(
+    'establish',
+    {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({tile, corporation})
+    },
+    handleAction
+  );
 };
 
-const addListeners = function(corp, groups){
+const addListeners = function(corp, groups) {
   const unincorporatedGroups = JSON.parse(groups);
-  unincorporatedGroups.forEach(group => group.forEach(tile => {
-    const element = document.querySelector(`div[id="${tile}"]`);
-    element.setAttribute('onclick', `establish(${tile},'${groups}','${corp}')`);
-  }));
+  unincorporatedGroups.forEach(group =>
+    group.forEach(tile => {
+      const element = document.querySelector(`div[id="${tile}"]`);
+      element.setAttribute(
+        'onclick',
+        `establish(${tile},'${corp}')`
+      );
+    })
+  );
 };
 
 const generateEstablishActions = function(groups, corporations) {
@@ -53,13 +61,13 @@ const generateEstablishActions = function(groups, corporations) {
   return corporations.reduce(generateHtml, '');
 };
 
-const placeATile = function(tile){
+const placeATile = function(tile) {
   sentPostReq(
     'placeTile',
     {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tile })
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({tile})
     },
     handleAction
   );
@@ -147,7 +155,7 @@ const showCardBody = function(card, tab) {
   tab.classList.add('selected');
 };
 
-const createActivityRow = function({ text, type }) {
+const createActivityRow = function({text, type}) {
   return `<div class="activityDiv">
   <p>
   <img src="../images/activityLogIcons/${type}.png"
@@ -165,6 +173,19 @@ const showActivityLog = function(activities) {
   activityCard.innerHTML = createActivityLog(activities);
 };
 
+const place = function(tiles, corporation) {
+  tiles.forEach(tile => {
+    const cssClass = `${corporation}_color`;
+    document.querySelector(`div[id="${tile}"]`).classList.add(cssClass);
+  });
+};
+
+const placeCorps = function(corporations) {
+  for (const corp in corporations) {
+    place(corporations[corp].tiles, corp);
+  }
+};
+
 const handleEstablishAction = function({groups, availableCorporations}) {
   const actionTab = document.querySelector('#action-tab');
   showCardBody('actions', actionTab);
@@ -173,19 +194,23 @@ const handleEstablishAction = function({groups, availableCorporations}) {
   document.querySelector('#action-tab').classList.remove('hideDiv');
 };
 
-const handleAction = function({status, action}){
+const handleAction = function({status, action}) {
   updateGamePage(status);
   const actions = {establish: handleEstablishAction};
-  if(action.state === 'wait') {
-    return;
+  if (action.state === 'wait') {
+    document.querySelector('#actions').classList.add('hideDiv');
+    document.querySelector('#action-tab').classList.add('hideDiv');
+    const activity = document.querySelector('#activity-tab');
+    return showCardBody('activityLog', activity);
   }
   const handler = actions[action.state];
   handler(action);
 };
 
-const updateGamePage = function(data){
+const updateGamePage = function(data) {
   addPlacedTilesOnBoard(data.placedTiles);
-  showCorpInfo(data.infoTable);
+  showCorpInfo(data.corporations);
+  placeCorps(data.corporations);
   showPlayerAssets(data.player.assets);
   showProfileName(data.player.name);
   showAllPlayersProfile(data.playersProfile);
@@ -198,9 +223,7 @@ const updateGamePage = function(data){
 
 const startTimeout = function() {
   const time = 3000;
-  return setTimeout(
-    () => sentGetReq('update', handleAction), time
-  );
+  return setTimeout(() => sentGetReq('update', handleAction), time);
 };
 
 const main = function() {
