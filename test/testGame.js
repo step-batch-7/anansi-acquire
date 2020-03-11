@@ -31,10 +31,10 @@ describe('Game', () => {
         statusMsg: 'Waiting for your turn',
         turn: false
       };
-      assert.deepStrictEqual(game.getStatus(13).player, expected);
+      assert.deepStrictEqual(game.getStatus(13).status.player, expected);
 
-      const firstPlayerTiles = game.getStatus(12).player.assets.tiles;
-      const secondPlayerTiles = game.getStatus(13).player.assets.tiles;
+      const firstPlayerTiles = game.getStatus(12).status.player.assets.tiles;
+      const secondPlayerTiles = game.getStatus(13).status.player.assets.tiles;
       assert.notDeepEqual(firstPlayerTiles, secondPlayerTiles);
     });
   });
@@ -62,7 +62,7 @@ describe('Game', () => {
         statusMsg: 'It is your turn, place a tile',
         turn: false
       };
-      assert.deepStrictEqual(game.getStatus(12).player, expected);
+      assert.deepStrictEqual(game.getStatus(12).status.player, expected);
     });
   });
 

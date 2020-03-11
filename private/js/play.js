@@ -26,7 +26,38 @@ const tileGenerator = function(num) {
   return `${number}${alphabet}`;
 };
 
+<<<<<<< HEAD
 const placeATile = function(tile) {
+=======
+const establish = (id, groups, corporation) => {
+  const unincorporatedGroups = JSON.parse(groups);
+  const clicked = unincorporatedGroups.find(group => group.includes(+id));
+  clicked.forEach(tile => {
+    const cssClass = `${corporation}_color`;
+    document.querySelector(`div[id="${tile}"]`).classList.add(cssClass);
+  });
+};
+
+const addListeners = function(corp, groups){
+  const unincorporatedGroups = JSON.parse(groups);
+  unincorporatedGroups.forEach(group => group.forEach(tile => {
+    const element = document.querySelector(`div[id="${tile}"]`);
+    element.setAttribute('onclick', `establish(${tile},'${groups}','${corp}')`);
+  }));
+};
+
+const generateEstablishActions = function(groups, corporations) {
+  const generateHtml = function(html, corp) {
+    const button = `<button
+    onclick="addListeners('${corp}', '${JSON.stringify(groups)}')">
+    ${corp}</button>`;
+    return html + button;
+  };
+  return corporations.reduce(generateHtml, '');
+};
+
+const placeATile = function(tile){
+>>>>>>> |#18|Abhilash/Deepika| Added feature to establish a corporation
   sentPostReq(
     'placeTile',
     {
@@ -34,7 +65,7 @@ const placeATile = function(tile) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ tile })
     },
-    updateGamePage
+    handleAction
   );
 };
 
@@ -138,7 +169,29 @@ const showActivityLog = function(activities) {
   activityCard.innerHTML = createActivityLog(activities);
 };
 
+<<<<<<< HEAD
 const updateGamePage = function(data) {
+=======
+const handleEstablishAction = function({groups, availableCorporations}) {
+  const actionTab = document.querySelector('#action-tab');
+  showCardBody('actions', actionTab);
+  const html = generateEstablishActions(groups, availableCorporations);
+  document.querySelector('#actions').innerHTML = html;
+  document.querySelector('#action-tab').classList.remove('hideDiv');
+};
+
+const handleAction = function({status, action}){
+  updateGamePage(status);
+  const actions = {establish: handleEstablishAction};
+  if(action.state === 'wait') {
+    return;
+  }
+  const handler = actions[action.state];
+  handler(action);
+};
+
+const updateGamePage = function(data){
+>>>>>>> |#18|Abhilash/Deepika| Added feature to establish a corporation
   addPlacedTilesOnBoard(data.placedTiles);
   showCorpInfo(data.infoTable);
   showPlayerAssets(data.player.assets);
@@ -153,12 +206,18 @@ const updateGamePage = function(data) {
 
 const startTimeout = function() {
   const time = 3000;
+<<<<<<< HEAD
   return setTimeout(() => sentGetReq('update', updateGamePage), time);
+=======
+  return setTimeout(
+    () => sentGetReq('update', handleAction), time
+  );
+>>>>>>> |#18|Abhilash/Deepika| Added feature to establish a corporation
 };
 
 const main = function() {
   createBoard();
-  sentGetReq('update', updateGamePage);
+  sentGetReq('update', handleAction);
 };
 
 window.onload = main;
