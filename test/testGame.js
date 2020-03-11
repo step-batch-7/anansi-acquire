@@ -84,6 +84,7 @@ describe('Game', () => {
     it('should move a tile from player\'s tile to placed tile', () => {
       const game = new Game(1, 1);
       game.addPlayer(12, 'test');
+      game.players[0].state = 'placeTile';
       assert.ok(game.placeATile(5));
     });
 
