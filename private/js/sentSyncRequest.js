@@ -10,7 +10,6 @@ const sentPostReq = function(url, request, callback, failCallback) {
       if (!data) {
         return;
       }
-      console.log(data);
       callback(data);
     });
 };
