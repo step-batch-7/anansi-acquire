@@ -151,6 +151,13 @@ describe('Game', () => {
       game.currentPlayer = game.players[0];
       assert.ok(game.changePlayerState(1, 'establish'));
     });
+
+    it('should change the player state to establish for id and state given', () => {
+      const game = new Game(1, 1);
+      game.addPlayer(1, 'test');
+      game.currentPlayer = game.players[0];
+      assert.ok(game.changePlayerState(1, 'testing'));
+    });
   });
 
   describe('placeATile', () => {
@@ -185,6 +192,40 @@ describe('Game', () => {
       game.placeNormalTile(1);
       game.placeNormalTile(2);
       assert.notOk(game.placeATile(3, 2));
+    });
+
+    it('should merge two corporate when the tile is mergerTile and distribute bonus to one player', () => {
+      const game = new Game(1, 1);
+      game.placedTiles = [0, 1, 2, 4, 5];
+      game.unincorporatedTiles = [[0, 1, 2], [4, 5]];
+      game.addPlayer(1, 'test');
+      game.players[0].tiles = [3];
+      game.establishCorporation(1, 'zeta', 1);
+      game.establishCorporation(4, 'sackson', 1);
+      assert.ok(game.placeATile(3, 1));
+    });
+
+    it('should merge two corporate when the tile is mergerTile and distribute bonus to more than one player', () => {
+      const game = new Game(1, 1);
+      game.placedTiles = [0, 1, 2, 4, 5];
+      game.unincorporatedTiles = [[0, 1, 2], [4, 5]];
+      game.addPlayer(1, 'test');
+      game.addPlayer(2, 'test2');
+      game.players[1].addStocks('sackson', 1);
+      game.players[0].tiles = [3];
+      game.establishCorporation(1, 'zeta', 1);
+      game.establishCorporation(4, 'sackson', 1);
+      assert.ok(game.placeATile(3, 1));
+    });
+
+    it('should increase a corporate if the tile in adjacent to a corporate', () => {
+      const game = new Game(1, 1);
+      game.placedTiles = [0, 1, 2];
+      game.unincorporatedTiles = [[0, 1, 2]];
+      game.addPlayer(1, 'test');
+      game.players[0].tiles = [3];
+      game.establishCorporation(1, 'zeta', 1);
+      assert.ok(game.placeATile(3, 1));
     });
   });
 
@@ -231,6 +272,20 @@ describe('Game', () => {
       game.corporations = {establishCorporate: () => false};
       assert.notOk(game.establishCorporation(3, 'phoenix', 1));
     });
+
+    it('should give true for unincorporated tiles and active corporations present but should not add stock to player when not available ', () => {
+      const game = new Game(1, 1);
+      game.addPlayer(1, 'test');
+      game.players[0].tiles = [3];
+      game.players[0].state = 'placeTile';
+      game.placeNormalTile(1);
+      game.placeNormalTile(2);
+      game.placeATile(3, 1);
+      game.corporations.removeStocks('phoenix', 25);
+      assert.ok(game.establishCorporation(3, 'phoenix', 1));
+      assert.deepStrictEqual(game.getStatus(1).status.player.assets.stocks.phoenix, 0);
+    });
+
   });
 
   describe('getStateData', () => {
@@ -310,6 +365,117 @@ describe('Game', () => {
       game.addPlayer(14, 'test3');
       game.decideOrder();
       assert.deepStrictEqual(game.getPlayerNames(), ['test', 'test2', 'test3']);
+    });
+  });
+
+  describe('getAdjacentCorporate', () => {
+    it('should give the adjacent corporations', () => {
+      const game = new Game(1, 1);
+      game.placedTiles = [0, 1, 2, 4, 5];
+      game.unincorporatedTiles = [[0, 1, 2], [4, 5]];
+      game.addPlayer(1, 'test');
+      game.establishCorporation(1, 'zeta', 1);
+      game.establishCorporation(4, 'sackson', 1);
+      assert.deepStrictEqual(game.getAdjacentCorporate(3), ['sackson', 'zeta']);
+    });
+
+    it('should not give the adjacent corporations when tile has no adjacent corporation', () => {
+      const game = new Game(1, 1);
+      game.placedTiles = [0, 1, 2, 4, 5];
+      game.unincorporatedTiles = [[0, 1, 2], [4, 5]];
+      game.addPlayer(1, 'test');
+      game.establishCorporation(1, 'zeta', 1);
+      game.establishCorporation(4, 'sackson', 1);
+      assert.deepStrictEqual(game.getAdjacentCorporate(87), []);
+    });
+  });
+
+  describe('getAdjacentPlacedTileList', () => {
+    it('should give the adjacent corporations', () => {
+      const game = new Game(1, 1);
+      game.placedTiles = [43, 55, 56, 32, 20, 45];
+      game.unincorporatedTiles = [[43, 55, 56], [20, 32]];
+      assert.deepStrictEqual(game.getAdjacentPlacedTileList(44), [20, 32, 43, 55, 56, 45]);
+    });
+  });
+
+  describe('increaseCorporate', () => {
+    it('should give no of players require for the game', () => {
+      const game = new Game(1, 1);
+      game.placedTiles = [0, 1, 2];
+      game.unincorporatedTiles = [[0, 1, 2]];
+      game.addPlayer(1, 'test');
+      game.establishCorporation(0, 'zeta', 1);
+      game.increaseCorporate(3, 'zeta');
+      assert.deepStrictEqual(game.getStatus(1).status.corporations.zeta.tiles, [0, 1, 2, 3]);
+    });
+  });
+  
+  describe('getBiggerToSmallerCorp', () => {
+    it('should give the sorted corporations with area', () => {
+      const game = new Game(1, 1);
+      game.placedTiles = [0, 1, 2];
+      game.unincorporatedTiles = [[0, 1, 2]];
+      game.addPlayer(1, 'test');
+      game.establishCorporation(0, 'zeta', 1);
+      assert.deepStrictEqual(game.getBiggerToSmallerCorp(['zeta']), ['zeta']);
+    });
+  });
+
+  describe('getCorporateStocks', () => {
+    it('should give no stocks when no player has stock', () => {
+      const game = new Game(1, 1);
+      game.placedTiles = [0, 1, 2];
+      game.unincorporatedTiles = [[0, 1, 2]];
+      game.addPlayer(1, 'test');
+      game.establishCorporation(0, 'zeta', 1);
+      game.players[0].stocks.zeta = 0;
+      assert.deepStrictEqual(game.getCorporateStocks('zeta'), []);
+    });
+  });
+
+  describe('distributeMinority', () => {
+    it('should give the minority bonus to the player', () => {
+      const game = new Game(1, 1);
+      game.addPlayer(1, 'test');
+      game.distributeMinority(3000, 0, 'zeta');
+      assert.deepStrictEqual(game.getStatus(1).status.player.assets.money, 9000);
+    });
+  });
+
+  describe('giveBonusToStockHolders', () => {
+    it('should give the majority and  minority bonus to the player', () => {
+      const game = new Game(1, 1);
+      game.addPlayer(1, 'test');
+      game.giveBonusToStockHolders({majority: 1000, minority: 1000}, [0, 0], 'zeta');
+      assert.deepStrictEqual(game.getStatus(1).status.player.assets.money, 8000);
+    });
+  });
+
+  describe('distributeBonus', () => {
+    it('should divide majority and minority between two stockHolders', () => {
+      const game = new Game(1, 2);
+      game.addPlayer(1, 'test');
+      game.addPlayer(2, 'test2');
+      game.players[0].stocks.zeta = 2;
+      game.players[1].stocks.zeta = 1;
+      game.distributeBonus({majority: 1000, minority: 500}, 'zeta');
+      assert.deepStrictEqual(game.getStatus(1).status.player.assets.money, 7000);
+      assert.deepStrictEqual(game.getStatus(2).status.player.assets.money, 6500);
+    });
+  });
+
+  describe('addInitialActivity', () => {
+    it('should add the initial activity ', () => {
+      const game = new Game(1, 2);
+      game.addPlayer(1, 'test');
+      game.addInitialActivity();
+      const expected = [
+        {type: 'turn', text: 'test\'s turn'}, 
+        {type: 'tilePlaced', text: 'Initial tile placed'}, 
+        {type: 'order', text: 'Order decide based on initial tiles'}
+      ];
+      assert.deepStrictEqual(game.getStatus(1).status.activity, expected);
     });
   });
 });
