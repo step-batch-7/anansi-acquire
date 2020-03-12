@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Host Game</title>
+  <script src="js/index.js"></script>
   <link rel="stylesheet" href="css/index.css" />
 </head>
 
@@ -14,7 +15,12 @@
     <p class="title">Host a game</p>
     <p id="error" class="hide">error</p>
     <form action="/hostGame" method="POST" class="form">
-      <div class="text-container"><label for="hostName">Name</label><input type="text" id='hostName' name="name" required class="textbox"></div>
+      <div class="text-container"><label for="hostName">Name</label>
+        <input type="text" id='hostName' name="name" required 
+        class="textbox" maxlength="8" minlength="3" 
+        onkeyup="show('hint')" onblur="hide('hint')">
+        <p class="hint hide" id="hint">name should have 3-8 characters only</p>
+      </div>
       <div class="text-container"> No of players:
       <select name="noOfPlayers">
         <option name="noOfPlayers" value="3">3</option>

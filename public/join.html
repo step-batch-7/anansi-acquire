@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/index.css" />
     <script src="js/join.js"></script>
     <title>Join</title>
+    <script src="js/index.js"></script>
   </head>
   <body>
     <div class="logo-container"><img src="images/title.png" alt="" /></div>
@@ -15,7 +16,18 @@
       <div class="form">
         <div class="text-container">
           <label for="name-textbox">Name</label
-          ><input type="text" name="name" id="name-textbox" />
+          ><input
+            type="text"
+            name="name"
+            id="name-textbox"
+            maxlength="8"
+            minlength="3"
+              onkeyup="show('hint')"
+              onblur="hide('hint')"
+          />
+          <p class="hint hide" id="hint">
+            name should have 3-8 characters only
+          </p>
         </div>
         <div class="text-container">
           <label for="id-textbox">Game id</label>

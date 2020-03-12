@@ -49,6 +49,12 @@ body {
   font-size: 0.8rem;
 }
 
+.hint {
+  align-self: center;
+  color: rgb(138, 204, 39);
+  font-size: 0.8rem;
+}
+
 .title {
   align-self: center;
   margin: 0;
@@ -81,7 +87,7 @@ button:hover {
   background: #ebe9e9;
 }
 button:active {
- background: #d6d5d5;
+  background: #d6d5d5;
 }
 
 label {
