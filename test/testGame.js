@@ -86,7 +86,7 @@ describe('Game', () => {
       game.addPlayer(1, 'test');
       game.players[0].state = 'placeTile';
       game.players[0].tiles = [1];
-      assert.ok(game.canPlayerPlaceTile(1));
+      assert.ok(game.canPlayerPlaceTile(1, 1));
     });
 
     it('should give false if player state and the tile not present in player tiles', () => {
@@ -130,13 +130,13 @@ describe('Game', () => {
       const game = new Game(1, 1);
       game.addPlayer(12, 'test');
       game.players[0].state = 'placeTile';
-      assert.ok(game.placeATile(5));
+      assert.ok(game.placeATile(5, 12));
     });
 
     it('should not move a tile from player\'s tile to placed tile', () => {
       const game = new Game(1, 1);
       game.addPlayer(12, 'test');
-      assert.notOk(game.placeATile('5C'));
+      assert.notOk(game.placeATile('5C', 12));
     });
 
     it('should return true if there is chance to establish a corporation', () => {
@@ -146,7 +146,17 @@ describe('Game', () => {
       game.players[0].state = 'placeTile';
       game.placeNormalTile(1);
       game.placeNormalTile(2);
-      assert.ok(game.placeATile(3));
+      assert.ok(game.placeATile(3, 1));
+    });
+
+    it('should return false if player tries to place in others turn', () => {
+      const game = new Game(1, 1);
+      game.addPlayer(1, 'test');
+      game.players[0].tiles = [3];
+      game.players[0].state = 'placeTile';
+      game.placeNormalTile(1);
+      game.placeNormalTile(2);
+      assert.notOk(game.placeATile(3, 2));
     });
   });
 
@@ -169,7 +179,7 @@ describe('Game', () => {
       game.players[0].state = 'placeTile';
       game.placeNormalTile(1);
       game.placeNormalTile(2);
-      game.placeATile(3);
+      game.placeATile(3, 1);
       assert.ok(game.establishCorporation(3, 'phoenix', 1));
     });
 
