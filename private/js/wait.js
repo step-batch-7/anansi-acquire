@@ -8,7 +8,7 @@ const generateJoined = function(players) {
 const displayStatus = function({hasJoined, joined, remaining}) {
   const template = generateJoined(joined);
   if (hasJoined) {
-    setTimeout(() => location.replace('play.html'), updateTime);
+    setTimeout(() => location.replace('start'), updateTime);
     document.querySelector('#status').innerText = 'Starting the game';
   }
   document.querySelector('#players').innerText = `\n${template}`;
