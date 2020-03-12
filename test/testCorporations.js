@@ -41,6 +41,16 @@ describe('Corporations', () => {
     });
   });
 
+  describe('getActiveCorporate', () => {
+    it('should return the active corporate names', () => {
+      const corporations = new Corporations();
+      corporations.establishCorporate('zeta', [12, 13, 14]);
+      corporations.establishCorporate('sackson', [16, 17]);
+      const expected = ['sackson', 'zeta'];
+      assert.deepStrictEqual(corporations.getActiveCorporate(), expected);
+    });
+  });
+
   describe('getMajorityOfCorp', () => {
     it('should give the majority of the given corporate', () => {
       const corporations = new Corporations();
@@ -64,6 +74,19 @@ describe('Corporations', () => {
     it('should not remove stocks of the given corp if no stock available', () => {
       const corporations = new Corporations();
       assert.notOk(corporations.removeStocks('zeta', 26));
+    });
+  });
+
+  describe('getAreaOfCorp', () => {
+    it('should give area zero for corporation not active', () => {
+      const corporations = new Corporations();
+      assert.strictEqual(corporations.getAreaOfCorp('zeta'), 0);
+    });
+
+    it('should give area zero for corporation having tiles', () => {
+      const corporations = new Corporations();
+      corporations.zeta.tiles = [2, 3, 4];
+      assert.strictEqual(corporations.getAreaOfCorp('zeta'), 3);
     });
   });
 });
