@@ -301,4 +301,15 @@ describe('Game', () => {
       assert.deepStrictEqual(game.requiredPlayers, 4);
     });
   });
+
+  describe('decideOrder', function() {
+    it('should give ordered player list', function() {
+      const game = new Game(1, 3);
+      game.addPlayer(12, 'test');
+      game.addPlayer(13, 'test2');
+      game.addPlayer(14, 'test3');
+      game.decideOrder();
+      assert.deepStrictEqual(game.getPlayerNames(), ['test', 'test2', 'test3']);
+    });
+  });
 });
