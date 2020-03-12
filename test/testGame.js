@@ -195,6 +195,31 @@ describe('Game', () => {
     });
   });
 
+  describe('getStateData', () => {
+    it('should get only state if the player state is wait', () => {
+      const game = new Game(1, 1);
+      game.addPlayer(1, 'test');
+      game.players[0].state = 'wait';
+      assert.deepStrictEqual(game.getStateData(1), {state: 'wait'});
+    });
+
+    it('should get state with data for the player state is establish', () => {
+      const game = new Game(1, 1);
+      game.addPlayer(1, 'test');
+      game.placeNormalTile(1);
+      game.placeNormalTile(2);
+      game.corporations = {getInactiveCorporate: () => ['phoenix']};
+      game.setUnincorporatedGroups();
+      game.players[0].state = 'establish';
+      const state = {
+        state: 'establish',
+        availableCorporations: ['phoenix'],
+        groups: [[1, 2]]
+      };
+      assert.deepStrictEqual(game.getStateData(1), state);
+    });
+  });
+
   describe('getPlayerStatus', () => {
     it('should give player status of given id', () => {
       const game = new Game(1, 2);
