@@ -80,6 +80,34 @@ describe('Game', () => {
     });
   });
 
+  describe('start', function() {
+    it('should start game and give true', function() {
+      const game = new Game(1, 3);
+      game.addPlayer(12, 'test');
+      game.addPlayer(12, 'test');
+      game.addPlayer(12, 'test');
+      assert.isTrue(game.start());
+    });
+  });
+
+  describe('hasStarted', function() {
+    it('should give true when game has started', function() {
+      const game = new Game(1, 3);
+      game.addPlayer(12, 'test');
+      game.addPlayer(12, 'test');
+      game.addPlayer(12, 'test');
+      game.start();
+      assert.isTrue(game.hasStarted);
+    });
+
+    it('should give false when game has not started', function() {
+      const game = new Game(1, 2);
+      game.addPlayer(12, 'test');
+      game.addPlayer(12, 'test');
+      assert.isFalse(game.hasStarted);
+    });
+  });
+
   describe('canPlayerPlaceTile', () => {
     it('should give true if player state and the tile is removed from player tiles', () => {
       const game = new Game(1, 1);

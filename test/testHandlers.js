@@ -109,7 +109,7 @@ describe('GET', () => {
         .expect('Location', '/game/waiting', done);
     });
   });
-  
+
   describe('/game/waiting', () => {
     it('should give waiting page for hosted user in /game/waiting', done => {
       app.locals.sessions = {
@@ -123,6 +123,7 @@ describe('GET', () => {
         .expect(/1441/, done);
     });
   });
+
   it('should give the hasJoined false if all players join /game/wait', done => {
     app.locals.sessions = {
       2: {gameId: 1441, playerId: 3, location: '/waiting'}
@@ -161,6 +162,48 @@ describe('GET', () => {
       .set('referer', 'game/waiting')
       .expect(200)
       .expect(JSON.stringify(expected), done);
+  });
+
+  describe('game/serveStartGame', function() {
+    it('should direct to game page if all players has joined', function(done) {
+      app.locals.sessions = {
+        2: {gameId: 1441, playerId: 3, location: '/play.html'}
+      };
+
+      app.locals.games = {
+        1441: {
+          hasAllPlayerJoined: () => true,
+          hasStarted: () => false,
+          requiredPlayers: 3
+        }
+      };
+
+      request(app)
+        .get('/game/start')
+        .set('Cookie', 'sessionId=2')
+        .expect(302)
+        .expect('Location', '/game/play.html', done);
+    });
+
+    it('should direct to game page if all players has joined', function(done) {
+      app.locals.sessions = {
+        2: {gameId: 1441, playerId: 3, location: '/play.html'}
+      };
+
+      app.locals.games = {
+        1441: {
+          hasAllPlayerJoined: () => true,
+          hasStarted: () => false,
+          requiredPlayers: 3
+        }
+      };
+
+      request(app)
+        .get('/game/start')
+        .set('Cookie', 'sessionId=2')
+        .expect(302)
+        .expect('Location', '/game/play.html', done);
+    });
   });
 });
 
@@ -252,10 +295,14 @@ describe('POST', () => {
   describe('/game', () => {
     describe('/placeTile', () => {
       it('should give status when a tile is placed by current player', done => {
-        app.locals.games = {123: {placeATile: () => true, getStatus: () => {
-          return {status: 'status'};
-        }
-        }};
+        app.locals.games = {
+          123: {
+            placeATile: () => true,
+            getStatus: () => {
+              return {status: 'status'};
+            }
+          }
+        };
         app.locals.sessions = {
           2: {gameId: 123, playerId: 3, location: '/play.html'}
         };
@@ -270,10 +317,14 @@ describe('POST', () => {
       });
 
       it('should not give status when tile is invalid', done => {
-        app.locals.games = {123: {placeATile: () => false, getStatus: () => {
-          return {status: 'status'};
-        }
-        }};
+        app.locals.games = {
+          123: {
+            placeATile: () => false,
+            getStatus: () => {
+              return {status: 'status'};
+            }
+          }
+        };
         app.locals.sessions = {
           2: {gameId: 123, playerId: 3, location: '/play.html'}
         };
@@ -289,9 +340,13 @@ describe('POST', () => {
     });
     describe('/update', () => {
       it('should give status of the particular player', done => {
-        app.locals.games = {123: {getStatus: () => {
-          return {status: 'status'}; 
-        }}};
+        app.locals.games = {
+          123: {
+            getStatus: () => {
+              return {status: 'status'};
+            }
+          }
+        };
         app.locals.sessions = {
           2: {gameId: 123, playerId: 3, location: '/play.html'}
         };
@@ -326,7 +381,7 @@ describe('POST', () => {
       it('should give 404 for corporation not established', done => {
         app.locals.games = {
           123: {
-            establishCorporation: () => false,
+            establishCorporation: () => false
           }
         };
         app.locals.sessions = {
