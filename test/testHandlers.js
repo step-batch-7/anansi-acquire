@@ -302,5 +302,44 @@ describe('POST', () => {
           .expect(200, done);
       });
     });
+
+    describe('/establish', () => {
+      it('should give action of the player along with status', done => {
+        app.locals.games = {
+          123: {
+            establishCorporation: () => true,
+            getStatus: () => ({status: {}, action: {}})
+          }
+        };
+        app.locals.sessions = {
+          2: {gameId: 123, playerId: 3, location: '/play.html'}
+        };
+        request(app)
+          .post('/game/establish')
+          .set('Cookie', 'sessionId=2')
+          .set('Content-Type', 'application/json')
+          .send(JSON.stringify({tile: 2, corporation: 'phoenix'}))
+          .set('referer', 'game/play.html')
+          .expect(200, done);
+      });
+
+      it('should give 404 for corporation not established', done => {
+        app.locals.games = {
+          123: {
+            establishCorporation: () => false,
+          }
+        };
+        app.locals.sessions = {
+          2: {gameId: 123, playerId: 3, location: '/play.html'}
+        };
+        request(app)
+          .post('/game/establish')
+          .set('Cookie', 'sessionId=2')
+          .set('Content-Type', 'application/json')
+          .send(JSON.stringify({tile: 2, corporation: 'phoenix'}))
+          .set('referer', 'game/play.html')
+          .expect(404, done);
+      });
+    });
   });
 });
