@@ -82,6 +82,8 @@ const addListeners = function(corp, groups) {
 };
 
 const skip = function(action) {
+  document.querySelector('#hiddenMessage').classList.add('hideDiv');
+  document.querySelector('#messageBox').classList.remove('hideDiv');
   sentPostReq(
     'skip',
     {
