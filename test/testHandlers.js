@@ -341,5 +341,26 @@ describe('POST', () => {
           .expect(404, done);
       });
     });
+
+    describe('/skip', () => {
+      it('should skip the establishing corporation', done => {
+        app.locals.games = {
+          123: {
+            changePlayerTurn: () => {},
+            getStatus: () => ({status: {player: {turn: true}}})
+          }
+        };
+        app.locals.sessions = {
+          2: {gameId: 123, playerId: 3, location: '/play.html'}
+        };
+        request(app)
+          .post('/game/skip')
+          .set('Cookie', 'sessionId=2')
+          .set('Content-Type', 'application/json')
+          .send(JSON.stringify({action: 'establish'}))
+          .set('referer', 'game/play.html')
+          .expect(200, done);
+      });
+    });
   });
 });

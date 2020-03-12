@@ -81,6 +81,18 @@ const addListeners = function(corp, groups) {
   });
 };
 
+const skip = function(action) {
+  sentPostReq(
+    'skip',
+    {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({action})
+    },
+    handleAction
+  );
+};
+
 const generateEstablishActions = function(groups, corporations) {
   const generateHtml = function(html, corp) {
     const button = `
@@ -92,7 +104,8 @@ const generateEstablishActions = function(groups, corporations) {
   let html = '<h3 class="action-head">Select a corporation to establish</h3>';
   html += '<div class="action-box">';
   html = corporations.reduce(generateHtml, html);
-  return html + '</div><div class="action-skip"><button>Skip</button></div>';
+  return html + `</div><div class="action-skip">
+  <button onclick="skip('establish')">Skip</button></div>`;
 };
 
 let tileClicked = '1';
