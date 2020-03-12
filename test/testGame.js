@@ -80,6 +80,51 @@ describe('Game', () => {
     });
   });
 
+  describe('canPlayerPlaceTile', () => {
+    it('should give true if player state and the tile is removed from player tiles', () => {
+      const game = new Game(1, 1);
+      game.addPlayer(1, 'test');
+      game.players[0].state = 'placeTile';
+      game.players[0].tiles = [1];
+      assert.ok(game.canPlayerPlaceTile(1));
+    });
+
+    it('should give false if player state and the tile not present in player tiles', () => {
+      const game = new Game(1, 1);
+      game.addPlayer(1, 'test');
+      game.players[0].state = 'placeTile';
+      game.players[0].tiles = [1];
+      assert.notOk(game.canPlayerPlaceTile(2));
+    });
+
+    it('should give false if player state is wait and the tile is present in player tiles', () => {
+      const game = new Game(1, 1);
+      game.addPlayer(1, 'test');
+      game.players[0].state = 'wait';
+      game.players[0].tiles = [1];
+      assert.notOk(game.canPlayerPlaceTile(1));
+    });
+  });
+
+  describe('setUnincorporatedGroups', () => {
+    it('should set the unincorporated groups', () => {
+      const game = new Game(1, 1);
+      game.placeNormalTile(1);
+      game.placeNormalTile(2);
+      game.setUnincorporatedGroups();
+      assert.deepStrictEqual(game.unincorporatedTiles, [[1, 2]]);
+    });
+  });
+
+  describe('changePlayerState', () => {
+    it('should change the player state to establish for id and state given', () => {
+      const game = new Game(1, 1);
+      game.addPlayer(1, 'test');
+      game.currentPlayer = game.players[0];
+      assert.ok(game.changePlayerState(1, 'establish'));
+    });
+  });
+
   describe('placeATile', () => {
     it('should move a tile from player\'s tile to placed tile', () => {
       const game = new Game(1, 1);
@@ -92,6 +137,61 @@ describe('Game', () => {
       const game = new Game(1, 1);
       game.addPlayer(12, 'test');
       assert.notOk(game.placeATile('5C'));
+    });
+
+    it('should return true if there is chance to establish a corporation', () => {
+      const game = new Game(1, 1);
+      game.addPlayer(1, 'test');
+      game.players[0].tiles = [3];
+      game.players[0].state = 'placeTile';
+      game.placeNormalTile(1);
+      game.placeNormalTile(2);
+      assert.ok(game.placeATile(3));
+    });
+  });
+
+  describe('removePlacedTiles', () => {
+    it('should remove tiles from the placedTiles', () => {
+      const game = new Game(1, 1);
+      game.placeNormalTile(1);
+      game.placeNormalTile(2);
+      game.placeNormalTile(3);
+      game.removePlacedTiles([1, 2]);
+      assert.deepStrictEqual(game.placedTiles, [3]);
+    });
+  });
+
+  describe('establishCorporation', () => {
+    it('should give true for unincorporated tiles and active corporations present ', () => {
+      const game = new Game(1, 1);
+      game.addPlayer(1, 'test');
+      game.players[0].tiles = [3];
+      game.players[0].state = 'placeTile';
+      game.placeNormalTile(1);
+      game.placeNormalTile(2);
+      game.placeATile(3);
+      assert.ok(game.establishCorporation(3, 'phoenix', 1));
+    });
+
+    it('should give false for unincorporated tiles not present', () => {
+      const game = new Game(1, 1);
+      game.addPlayer(1, 'test');
+      game.players[0].tiles = [3];
+      game.players[0].state = 'placeTile';
+      game.placeNormalTile(1);
+      game.placeATile(3);
+      assert.notOk(game.establishCorporation(3, 'phoenix', 1));
+    });
+
+    it('should give false for active corporations not present', () => {
+      const game = new Game(1, 1);
+      game.addPlayer(1, 'test');
+      game.players[0].tiles = [3];
+      game.players[0].state = 'placeTile';
+      game.placeNormalTile(2);
+      game.placeATile(3);
+      game.corporations = {establishCorporate: () => false};
+      assert.notOk(game.establishCorporation(3, 'phoenix', 1));
     });
   });
 
