@@ -257,8 +257,9 @@ describe('Game', () => {
       game.addPlayer(1, 'test');
       game.players[0].tiles = [3];
       game.players[0].state = 'placeTile';
+      game.currentPlayer = {id: 1};
       game.placeNormalTile(1);
-      game.placeATile(3);
+      game.placeATile(3, 1);
       assert.notOk(game.establishCorporation(3, 'phoenix', 1));
     });
 

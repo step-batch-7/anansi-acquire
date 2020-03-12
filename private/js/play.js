@@ -248,9 +248,25 @@ const handleEstablishAction = function({groups, availableCorporations}) {
   document.querySelector('#action-tab').classList.remove('hideDiv');
 };
 
+const handleNoCorpsAction = function() {
+  showError('No Corporations to establish', 2000);
+  sentPostReq(
+    'skip',
+    {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({action: 'skip'})
+    },
+    handleAction
+  );
+};
+
 const handleAction = function({status, action}) {
   updateGamePage(status);
-  const actions = {establish: handleEstablishAction};
+  const actions = {
+    establish: handleEstablishAction,
+    'no-corps': handleNoCorpsAction
+  };
   if (action.state === 'wait' || action.state === 'placeTile') {
     document.querySelector('#actions').classList.add('hideDiv');
     document.querySelector('#action-tab').classList.add('hideDiv');
