@@ -93,8 +93,9 @@ describe('Corporate', function() {
     it('should defunct the given corp', () => {
       const corporate = Corporate.create('zeta');
       corporate.establish([0, 1, 2]);
-      corporate.defunct();
-      const expected = {
+      const actual = corporate.defunct();
+      const expected = {tiles: [0, 1, 2], majority: 3000, minority: 1500};
+      const status = {
         stocks: 25,
         tiles: [],
         area: 0,
@@ -104,7 +105,8 @@ describe('Corporate', function() {
         isActive: false,
         isStable: false
       };
-      assert.deepStrictEqual(corporate.status, expected);
+      assert.deepStrictEqual(actual, expected);
+      assert.deepStrictEqual(corporate.status, status);
     });
   });
 });
