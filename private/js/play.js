@@ -27,9 +27,12 @@ const tileGenerator = function(num) {
 };
 
 const establish = (tile, corporation) => {
-  showError(`You established ${corporation}`);
+  showError(`You established ${corporation}`, 2000);
   const tiles = Array.from(document.querySelectorAll('.tile'));
-  tiles.forEach(tile => tile.removeAttribute('onclick'));
+  tiles.forEach(tile => {
+    tile.classList.remove('clickable');
+    tile.removeAttribute('onclick');
+  });
   sentPostReq(
     'establish',
     {
@@ -41,43 +44,61 @@ const establish = (tile, corporation) => {
   );
 };
 
-const showError = function(msg) {
+const showError = function(msg, seconds) {
   const msgBox = document.querySelector('#hiddenMessage');
   msgBox.innerText = msg;
   document.querySelector('#messageBox').classList.add('hideDiv');
   msgBox.classList.remove('hideDiv');
+  if(!seconds) {
+    return;
+  }
   setTimeout(() => {
     msgBox.classList.add('hideDiv');
     document.querySelector('#messageBox').classList.remove('hideDiv');
-  }, 2000);
+  }, seconds);
+};
+
+const removeClass = function(corps) {
+  corps.forEach(corp => {
+    corp.className = '';
+  });
 };
 
 const addListeners = function(corp, groups) {
+  const corps = Array.from(document.querySelector('.action-box').children);
+  removeClass(corps);
+  showError('Select on the tile to establish');
+  document.querySelector(`#${corp}-button`).className = `${corp}_color`;
   const tiles = Array.from(document.querySelectorAll('.tile'));
   const unincorporatedGroups = JSON.parse(groups).flat();
   tiles.forEach(tile => {
     if(unincorporatedGroups.includes(+tile.id)) {
+      tile.classList.add('clickable');
       return tile.setAttribute('onclick', `establish(${+tile.id}, '${corp}')`);
     }
     const err = 'You can\'t establish a corporation there';
-    tile.setAttribute('onclick', `showError("${err}")`);
+    tile.setAttribute('onclick', `showError("${err}", 2000)`);
   });
 };
 
 const generateEstablishActions = function(groups, corporations) {
   const generateHtml = function(html, corp) {
-    const button = `<button
+    const button = `
+    <button id="${corp}-button"
     onclick="addListeners('${corp}', '${JSON.stringify(groups)}')">
     ${corp}</button>`;
     return html + button;
   };
-  return corporations.reduce(generateHtml, '');
+  let html = '<h3 class="action-head">Select a corporation to establish</h3>';
+  html += '<div class="action-box">';
+  html = corporations.reduce(generateHtml, html);
+  return html + '</div><div class="action-skip"><button>Skip</button></div>';
 };
 
 let tileClicked = '1';
 
 const placeATile = function(tile) {
-  showError(`You placed ${tileGenerator(tile)}`);
+  showError(`You placed ${tileGenerator(tile)}`, 2000);
   tileClicked = tileGenerator(tile);
   sentPostReq(
     'placeTile',
@@ -87,7 +108,7 @@ const placeATile = function(tile) {
       body: JSON.stringify({tile})
     },
     handleAction,
-    () => showError('You can\'t place a tile now')
+    () => showError('You can\'t place a tile now', 2000)
   );
 };
 
@@ -193,8 +214,8 @@ const showActivityLog = function(activities) {
 
 const place = function(tiles, corporation) {
   tiles.forEach(tile => {
-    const cssClass = `${corporation}_color`;
-    document.querySelector(`div[id="${tile}"]`).className = `tile ${cssClass}`;
+    const cssClass = `tile placedTile ${corporation}_color`;
+    document.querySelector(`div[id="${tile}"]`).className = cssClass;
   });
 };
 

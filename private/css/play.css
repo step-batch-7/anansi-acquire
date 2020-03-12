@@ -1,3 +1,8 @@
+button {
+  outline: none;
+  cursor: pointer;
+}
+
 body {
   font-family: sans-serif;
 }
@@ -313,4 +318,44 @@ td {
   color: gray;
   font: inherit;
   margin: auto;
+}
+
+.action-head {
+  font-weight: 600;
+  color: #484141;
+  margin: 0;
+  margin-bottom: 5%;
+}
+
+.action-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.action-box > button {
+  text-transform: capitalize;
+  width: 35%;
+  font-size: 0.9rem;
+  margin-bottom: 1%;
+  padding: 1.2%;
+  border-radius: 4px;
+}
+
+.action-skip {
+  display: flex;
+  flex-direction: column;
+}
+
+.action-skip > button {
+  margin-top: 5%;
+  width: 25%;
+  align-self: flex-end;
+  font-size: 0.9rem;
+  padding: 1.2%;
+  border-radius: 4px;
+}
+
+.clickable {
+  cursor: pointer;
 }
