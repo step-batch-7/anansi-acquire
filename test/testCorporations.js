@@ -89,4 +89,14 @@ describe('Corporations', () => {
       assert.strictEqual(corporations.getAreaOfCorp('zeta'), 3);
     });
   });
+
+  describe('addTiles', () => {
+    it('should add tiles to the given corporate', () => {
+      const corporations = new Corporations();
+      corporations.establishCorporate('zeta', [0, 1]);
+      corporations.addTiles('zeta', [2]);
+      const expected = [0, 1, 2];
+      assert.deepStrictEqual(corporations.status.zeta.tiles, expected);
+    });
+  });
 });
