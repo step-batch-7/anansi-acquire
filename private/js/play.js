@@ -27,6 +27,9 @@ const tileGenerator = function(num) {
 };
 
 const establish = (tile, corporation) => {
+  showError(`You established ${corporation}`);
+  const tiles = Array.from(document.querySelectorAll('.tile'));
+  tiles.forEach(tile => tile.removeAttribute('onclick'));
   sentPostReq(
     'establish',
     {
@@ -38,17 +41,27 @@ const establish = (tile, corporation) => {
   );
 };
 
+const showError = function(msg) {
+  const msgBox = document.querySelector('#hiddenMessage');
+  msgBox.innerText = msg;
+  document.querySelector('#messageBox').classList.add('hideDiv');
+  msgBox.classList.remove('hideDiv');
+  setTimeout(() => {
+    msgBox.classList.add('hideDiv');
+    document.querySelector('#messageBox').classList.remove('hideDiv');
+  }, 2000);
+};
+
 const addListeners = function(corp, groups) {
-  const unincorporatedGroups = JSON.parse(groups);
-  unincorporatedGroups.forEach(group =>
-    group.forEach(tile => {
-      const element = document.querySelector(`div[id="${tile}"]`);
-      element.setAttribute(
-        'onclick',
-        `establish(${tile},'${corp}')`
-      );
-    })
-  );
+  const tiles = Array.from(document.querySelectorAll('.tile'));
+  const unincorporatedGroups = JSON.parse(groups).flat();
+  tiles.forEach(tile => {
+    if(unincorporatedGroups.includes(+tile.id)) {
+      return tile.setAttribute('onclick', `establish(${+tile.id}, '${corp}')`);
+    }
+    const err = 'You can\'t establish a corporation there';
+    tile.setAttribute('onclick', `showError("${err}")`);
+  });
 };
 
 const generateEstablishActions = function(groups, corporations) {
@@ -61,7 +74,11 @@ const generateEstablishActions = function(groups, corporations) {
   return corporations.reduce(generateHtml, '');
 };
 
+let tileClicked = '1';
+
 const placeATile = function(tile) {
+  showError(`You placed ${tileGenerator(tile)}`);
+  tileClicked = tileGenerator(tile);
   sentPostReq(
     'placeTile',
     {
@@ -69,7 +86,8 @@ const placeATile = function(tile) {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({tile})
     },
-    handleAction
+    handleAction,
+    () => showError('You can\'t place a tile now')
   );
 };
 

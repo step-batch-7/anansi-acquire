@@ -31,7 +31,7 @@ body {
   margin-top: -0.2%;
 }
 
-#messageBox {
+#messageBox, #hiddenMessage {
   width: 50%;
   padding-top: 0.5%;
   margin-left: 10%;
