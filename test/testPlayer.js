@@ -15,6 +15,20 @@ describe('Player', () => {
       player.statusMsg = 'hello';
       assert.deepStrictEqual(player.getStatus().statusMsg, 'hello');
     });
+
+    it('should give the status message', () => {
+      const player = new Player(1, 'test', []);
+      player.statusMsg = 'hello';
+      assert.deepStrictEqual(player.status, 'hello');
+    });
+
+    it('should give the status when state is not wait', () => {
+      const player = new Player(1, 'test', []);
+      player.bonus = true;
+      player.state = 'testing';
+      player.statusMsg = 'hello';
+      assert.deepStrictEqual(player.getStatus().statusMsg, 'hello');
+    });
   });
 
   describe('removeTile', () => {
