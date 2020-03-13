@@ -10,7 +10,10 @@ const startGame = function({isAnyError, msg}) {
 const joinInGame = function() {
   const name = document.querySelector('#name-textbox').value;
   const gameId = document.querySelector('#id-textbox').value;
-  if(!name.trim() || !gameId.trim()) {
+  const errorBox = document.querySelector('#error');
+  if (name.trim().length < 3 ) { 
+    errorBox.innerText = 'Name must have 3-8 characters';
+    errorBox.classList.remove('hide');
     return;
   }
   const body = JSON.stringify({name, gameId});
