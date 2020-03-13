@@ -15,27 +15,13 @@
     "ecmaVersion": 2018
   },
   "rules": {
-    "indent": [
-      "error",
-      2
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ],
+    "indent": ["error", 2],
+    "quotes": ["error", "single"],
+    "linebreak-style": ["error", "unix"],
+    "semi": ["error", "always"],
     "camelcase": "error",
     "class-methods-use-this": "warn",
-    "array-bracket-spacing": [
-      "error"
-    ],
+    "array-bracket-spacing": ["error"],
     "comma-spacing": "error",
     "arrow-spacing": "error",
     "no-var": "error",
@@ -69,10 +55,7 @@
     "no-useless-return": "error",
     "max-depth": "error",
     "no-mixed-operators": "error",
-    "complexity": [
-      "error",
-      4
-    ],
+    "complexity": ["error", 4],
     "no-extra-parens": "error",
     "no-template-curly-in-string": "error",
     "array-callback-return": "error",
@@ -97,34 +80,22 @@
   },
   "overrides": [
     {
-      "files": [
-        "test*.js"
-      ],
+      "files": ["test*.js"],
       "rules": {
-        "max-len": "warn",
         "no-magic-numbers": "off",
         "max-statements": "off"
       }
     },
     {
-      "files": [
-        "server.js",
-        "lib/routes.js"
-      ],
+      "files": ["public/js/*.js", "private/js/*.js"],
       "rules": {
-        "no-console": "off",
-        "no-process-env": "off"
+        "no-unused-vars": "off",
+        "no-undef": "off"
       }
     },
     {
-      "files": [
-        "public/js/*.js",
-        "private/js/*.js",
-        "lib/models/*.js"
-      ],
+      "files": ["lib/models/corporate.js", "lib/models/game.js"],
       "rules": {
-        "no-unused-vars": "off",
-        "no-undef": "off",
         "no-magic-numbers": "off"
       }
     }

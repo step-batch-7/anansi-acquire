@@ -27,7 +27,8 @@ const tileGenerator = function(num) {
 };
 
 const establish = (tile, corporation) => {
-  showError(`You established ${corporation}`, 2000);
+  const interval = 2000;
+  showError(`You established ${corporation}`, interval);
   const tiles = Array.from(document.querySelectorAll('.tile'));
   tiles.forEach(tile => {
     tile.classList.remove('clickable');
@@ -41,7 +42,7 @@ const establish = (tile, corporation) => {
       body: JSON.stringify({tile, corporation})
     },
     handleAction,
-    () => showError('You can\'t establish', 2000)
+    () => showError('You can\'t establish', interval)
   );
 };
 
@@ -50,7 +51,7 @@ const showError = function(msg, seconds) {
   msgBox.innerText = msg;
   document.querySelector('#messageBox').classList.add('hideDiv');
   msgBox.classList.remove('hideDiv');
-  if(!seconds) {
+  if (!seconds) {
     return;
   }
   setTimeout(() => {
@@ -73,7 +74,7 @@ const addListeners = function(corp, groups) {
   const tiles = Array.from(document.querySelectorAll('.tile'));
   const unincorporatedGroups = JSON.parse(groups).flat();
   tiles.forEach(tile => {
-    if(unincorporatedGroups.includes(+tile.id)) {
+    if (unincorporatedGroups.includes(+tile.id)) {
       tile.classList.add('clickable');
       return tile.setAttribute('onclick', `establish(${+tile.id}, '${corp}')`);
     }
@@ -107,14 +108,18 @@ const generateEstablishActions = function(groups, corporations) {
   let html = '<h3 class="action-head">Select a corporation to establish</h3>';
   html += '<div class="action-box">';
   html = corporations.reduce(generateHtml, html);
-  return html + `</div><div class="action-skip">
-  <button onclick="skip('establish')">Skip</button></div>`;
+  return (
+    html +
+    `</div><div class="action-skip">
+  <button onclick="skip('establish')">Skip</button></div>`
+  );
 };
 
 let tileClicked = '1';
 
 const placeATile = function(tile) {
-  showError(`You placed ${tileGenerator(tile)}`, 2000);
+  const interval = 2000;
+  showError(`You placed ${tileGenerator(tile)}`, interval);
   tileClicked = tileGenerator(tile);
   sentPostReq(
     'placeTile',
@@ -124,7 +129,7 @@ const placeATile = function(tile) {
       body: JSON.stringify({tile})
     },
     handleAction,
-    () => showError('You can\'t place a tile now', 2000)
+    () => showError('You can\'t place a tile now', interval)
   );
 };
 
@@ -250,7 +255,8 @@ const handleEstablishAction = function({groups, availableCorporations}) {
 };
 
 const handleNoCorpsAction = function() {
-  showError('No Corporations to establish', 2000);
+  const interval = 2000;
+  showError('No Corporations to establish', interval);
   sentPostReq(
     'skip',
     {
