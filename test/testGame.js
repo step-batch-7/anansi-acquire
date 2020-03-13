@@ -220,7 +220,9 @@ describe('Game', () => {
 
     it('should not merge two corporate when tile is unplayable tile', () => {
       const game = new Game(1, 1);
-      game.placedTiles = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35];
+      const set1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 24, 25, 26];
+      const set2 = [27, 28, 29, 30, 31, 32, 33, 34, 35];
+      game.placedTiles = set1.concat(set2);
       game.unincorporatedTiles = [
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 
         [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35]
