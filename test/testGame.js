@@ -218,6 +218,20 @@ describe('Game', () => {
       assert.ok(game.placeATile(3, 1));
     });
 
+    it('should not merge two corporate when tile is unplayable tile', () => {
+      const game = new Game(1, 1);
+      game.placedTiles = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35];
+      game.unincorporatedTiles = [
+        [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 
+        [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35]
+      ];
+      game.addPlayer(1, 'test');
+      game.players[0].tiles = [12];
+      game.establishCorporation(1, 'zeta', 1);
+      game.establishCorporation(24, 'sackson', 1);
+      assert.ok(game.placeATile(12, 1));
+    });
+
     it(`should merge two corporate when the tile is mergerTile 
     and distribute bonus to more than one player`, () => {
       const game = new Game(1, 1);

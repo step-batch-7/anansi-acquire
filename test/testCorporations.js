@@ -20,7 +20,10 @@ describe('Corporations', () => {
       const corporations = new Corporations();
       corporations.establishCorporate('zeta', [12, 13, 14]);
       corporations.establishCorporate('sackson', [16, 17]);
-      assert.ok(corporations.mergeCorporate('zeta', 'sackson', [15]));
+      assert.deepStrictEqual(
+        corporations.mergeCorporate('zeta', 'sackson', [15]),
+        {majority: 2000, minority: 1000, isMerged: true}
+      );
     });
 
     it('should not merge two corporate when smaller is stable', () => {
@@ -30,7 +33,10 @@ describe('Corporations', () => {
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
       );
       corporations.establishCorporate('sackson', [24, 36]);
-      assert.notOk(corporations.mergeCorporate('sackson', 'zeta', [12]));
+      assert.deepStrictEqual(
+        corporations.mergeCorporate('sackson', 'zeta', [15]),
+        {isMerged: false}
+      );
     });
   });
 

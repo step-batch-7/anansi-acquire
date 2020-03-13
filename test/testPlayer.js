@@ -38,12 +38,5 @@ describe('Player', () => {
       assert.deepStrictEqual(player.removeTile(7), 7);
       assert.deepStrictEqual(player.getStatus().assets.tiles, expected);
     });
-
-    it('should not remove a tile from player\'s tiles if not present', () => {
-      const player = new Player(123, 'test', [5, 18, 39, 63, 76, 25]);
-      const expected = [5, 18, 39, 63, 76, 25];
-      assert.notOk(player.removeTile(6));
-      assert.deepStrictEqual(player.getStatus().assets.tiles, expected);
-    });
   });
 });
