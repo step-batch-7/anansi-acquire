@@ -184,6 +184,16 @@ describe('Game', () => {
       assert.ok(game.placeATile(3, 1));
     });
 
+    it('should place a normal tile on the board if all the tiles are on the edge of the board', () => {
+      const game = new Game(1, 1);
+      game.addPlayer(1, 'test');
+      game.players[0].tiles = [3];
+      game.players[0].state = 'placeTile';
+      game.placeNormalTile(12);
+      game.placeNormalTile(11);
+      assert.ok(game.placeATile(3, 1));
+    });
+
     it('should return false if player tries to place in others turn', () => {
       const game = new Game(1, 1);
       game.addPlayer(1, 'test');
@@ -287,6 +297,14 @@ describe('Game', () => {
       assert.deepStrictEqual(game.getStatus(1).status.player.assets.stocks.phoenix, 0);
     });
 
+    it('should not establish a corporate when unincorporated tiles available but no corporate available', () => {
+      const game = new Game(1, 1);
+      game.addPlayer(1, 'test');
+      game.players[0].tiles = [3];
+      game.unincorporatedTiles = [[0, 1, 2]];
+      game.corporations = {getInactiveCorporate: () => []};
+      assert.ok(game.checkCorpEstablishment());
+    });
   });
 
   describe('getStateData', () => {

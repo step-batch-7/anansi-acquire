@@ -167,14 +167,14 @@ describe('GET', () => {
   describe('game/serveStartGame', function() {
     it('should direct to game page if all players has joined', function(done) {
       app.locals.sessions = {
-        2: {gameId: 1441, playerId: 3, location: '/play.html'}
+        2: {gameId: 1441, playerId: 3, location: '/start'}
       };
-
       app.locals.games = {
         1441: {
           hasAllPlayerJoined: () => true,
-          hasStarted: () => false,
-          requiredPlayers: 3
+          hasStarted: false,
+          started: false,
+          start: () => {}
         }
       };
 
@@ -182,7 +182,7 @@ describe('GET', () => {
         .get('/game/start')
         .set('Cookie', 'sessionId=2')
         .expect(302)
-        .expect('Location', '/game/play.html', done);
+        .expect('Location', 'play.html', done);
     });
 
     it('should direct to game page if all players has joined', function(done) {
@@ -211,6 +211,18 @@ describe('POST', () => {
   describe('/hostGame', function() {
     it('should show waiting page if user enters name and playerCount', done => {
       const body = JSON.stringify({name: 'john', noOfPlayers: '3'});
+      request(app)
+        .post('/hostGame')
+        .set('Content-Type', 'application/json')
+        .send(body)
+        .expect(302, done);
+    });
+
+    it('should give another gameId if already a game present', done => {
+      const body = JSON.stringify({name: 'john', noOfPlayers: '3'});
+      app.locals.games = {
+        1234: {hasAllPlayerJoined: () => false, addPlayer: () => {}}
+      };
       request(app)
         .post('/hostGame')
         .set('Content-Type', 'application/json')
