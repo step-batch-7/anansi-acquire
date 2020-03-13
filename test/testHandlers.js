@@ -413,7 +413,8 @@ describe('POST', () => {
         app.locals.games = {
           123: {
             changePlayerTurn: () => {},
-            getStatus: () => ({status: {player: {turn: true}}})
+            getStatus: () => ({status: {player: {turn: true}}}),
+            skip: () => true
           }
         };
         app.locals.sessions = {

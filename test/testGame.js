@@ -531,4 +531,20 @@ describe('Game', () => {
       assert.deepStrictEqual(game.getStatus(1).status.activity, expected);
     });
   });
+
+  describe('skip', () => {
+    it('should change the turn and return status', () => {
+      const game = new Game(1, 2);
+      game.addPlayer(1, 'test1');
+      game.addPlayer(2, 'test2');
+      assert.deepStrictEqual(game.skip(1), game.getStatus(1));
+    });
+
+    it('shouldn\'t change the turn and return status', () => {
+      const game = new Game(1, 2);
+      game.addPlayer(1, 'test1');
+      game.addPlayer(2, 'test2');
+      assert.deepStrictEqual(game.skip(2), game.getStatus(2));
+    });
+  });
 });
