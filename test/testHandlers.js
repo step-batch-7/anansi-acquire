@@ -187,7 +187,7 @@ describe('GET', () => {
 
     it('should direct to game page if all players has joined', function(done) {
       app.locals.sessions = {
-        2: {gameId: 1441, playerId: 3, location: '/play.html'}
+        2: {gameId: 1441, playerId: 3, location: '/start'}
       };
 
       app.locals.games = {
@@ -202,7 +202,27 @@ describe('GET', () => {
         .get('/game/start')
         .set('Cookie', 'sessionId=2')
         .expect(302)
-        .expect('Location', '/game/play.html', done);
+        .expect('Location', 'play.html', done);
+    });
+
+    it('should not start the game if the game is already started', done => {
+      app.locals.sessions = {
+        2: {gameId: 1441, playerId: 3, location: '/start'}
+      };
+
+      app.locals.games = {
+        1441: {
+          hasAllPlayerJoined: () => true,
+          hasStarted: () => true,
+          requiredPlayers: 3
+        }
+      };
+
+      request(app)
+        .get('/game/start')
+        .set('Cookie', 'sessionId=2')
+        .expect(302)
+        .expect('Location', 'play.html', done);
     });
   });
 });

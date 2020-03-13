@@ -16,16 +16,19 @@ describe('Corporations', () => {
   });
 
   describe('mergeCorporate', () => {
-    it('should merge the smaller to bigger corporate when smaller is not stable', () => {
+    it('should merge two corporate when smaller is not stable', () => {
       const corporations = new Corporations();
       corporations.establishCorporate('zeta', [12, 13, 14]);
       corporations.establishCorporate('sackson', [16, 17]);
       assert.ok(corporations.mergeCorporate('zeta', 'sackson', [15]));
     });
 
-    it('should not merge the smaller to bigger corporate when smaller is stable', () => {
+    it('should not merge two corporate when smaller is stable', () => {
       const corporations = new Corporations();
-      corporations.establishCorporate('zeta', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
+      corporations.establishCorporate(
+        'zeta', 
+        [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+      );
       corporations.establishCorporate('sackson', [24, 36]);
       assert.notOk(corporations.mergeCorporate('sackson', 'zeta', [12]));
     });
@@ -71,7 +74,7 @@ describe('Corporations', () => {
       assert.ok(corporations.removeStocks('zeta', 1));
     });
 
-    it('should not remove stocks of the given corp if no stock available', () => {
+    it('should give false for the given corp if no stock available', () => {
       const corporations = new Corporations();
       assert.notOk(corporations.removeStocks('zeta', 26));
     });

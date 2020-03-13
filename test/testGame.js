@@ -109,7 +109,7 @@ describe('Game', () => {
   });
 
   describe('canPlayerPlaceTile', () => {
-    it('should give true if player state and the tile is removed from player tiles', () => {
+    it('should give true if the tile is removed from player tiles', () => {
       const game = new Game(1, 1);
       game.addPlayer(1, 'test');
       game.players[0].state = 'placeTile';
@@ -117,7 +117,7 @@ describe('Game', () => {
       assert.ok(game.canPlayerPlaceTile(1, 1));
     });
 
-    it('should give false if player state and the tile not present in player tiles', () => {
+    it('should give false if the tile not present in player tiles', () => {
       const game = new Game(1, 1);
       game.addPlayer(1, 'test');
       game.players[0].state = 'placeTile';
@@ -125,7 +125,8 @@ describe('Game', () => {
       assert.notOk(game.canPlayerPlaceTile(2));
     });
 
-    it('should give false if player state is wait and the tile is present in player tiles', () => {
+    it(`should give false if player state is wait and 
+    the tile is present in player tiles`, () => {
       const game = new Game(1, 1);
       game.addPlayer(1, 'test');
       game.players[0].state = 'wait';
@@ -145,14 +146,14 @@ describe('Game', () => {
   });
 
   describe('changePlayerState', () => {
-    it('should change the player state to establish for id and state given', () => {
+    it('should change player state to establish for id and state given', () => {
       const game = new Game(1, 1);
       game.addPlayer(1, 'test');
       game.currentPlayer = game.players[0];
       assert.ok(game.changePlayerState(1, 'establish'));
     });
 
-    it('should change the player state to establish for id and state given', () => {
+    it('should change player state to establish for id and state given', () => {
       const game = new Game(1, 1);
       game.addPlayer(1, 'test');
       game.currentPlayer = game.players[0];
@@ -174,7 +175,7 @@ describe('Game', () => {
       assert.notOk(game.placeATile('5C', 12));
     });
 
-    it('should return true if there is chance to establish a corporation', () => {
+    it('should return true if there is chance to establish a corporate', () => {
       const game = new Game(1, 1);
       game.addPlayer(1, 'test');
       game.players[0].tiles = [3];
@@ -184,7 +185,8 @@ describe('Game', () => {
       assert.ok(game.placeATile(3, 1));
     });
 
-    it('should place a normal tile on the board if all the tiles are on the edge of the board', () => {
+    it(`should place a normal tile on the board 
+    if all the tiles are on the edge of the board`, () => {
       const game = new Game(1, 1);
       game.addPlayer(1, 'test');
       game.players[0].tiles = [3];
@@ -204,7 +206,8 @@ describe('Game', () => {
       assert.notOk(game.placeATile(3, 2));
     });
 
-    it('should merge two corporate when the tile is mergerTile and distribute bonus to one player', () => {
+    it(`should merge two corporate when the tile is mergerTile 
+    and distribute bonus to one player`, () => {
       const game = new Game(1, 1);
       game.placedTiles = [0, 1, 2, 4, 5];
       game.unincorporatedTiles = [[0, 1, 2], [4, 5]];
@@ -215,7 +218,8 @@ describe('Game', () => {
       assert.ok(game.placeATile(3, 1));
     });
 
-    it('should merge two corporate when the tile is mergerTile and distribute bonus to more than one player', () => {
+    it(`should merge two corporate when the tile is mergerTile 
+    and distribute bonus to more than one player`, () => {
       const game = new Game(1, 1);
       game.placedTiles = [0, 1, 2, 4, 5];
       game.unincorporatedTiles = [[0, 1, 2], [4, 5]];
@@ -228,7 +232,7 @@ describe('Game', () => {
       assert.ok(game.placeATile(3, 1));
     });
 
-    it('should increase a corporate if the tile in adjacent to a corporate', () => {
+    it('should increase a corporate if the tile is adjacent', () => {
       const game = new Game(1, 1);
       game.placedTiles = [0, 1, 2];
       game.unincorporatedTiles = [[0, 1, 2]];
@@ -251,7 +255,8 @@ describe('Game', () => {
   });
 
   describe('establishCorporation', () => {
-    it('should give true for unincorporated tiles and active corporations present ', () => {
+    it(`should give true for unincorporated tiles 
+    and active corporations present`, () => {
       const game = new Game(1, 1);
       game.addPlayer(1, 'test');
       game.players[0].tiles = [3];
@@ -284,7 +289,9 @@ describe('Game', () => {
       assert.notOk(game.establishCorporation(3, 'phoenix', 1));
     });
 
-    it('should give true for unincorporated tiles and active corporations present but should not add stock to player when not available ', () => {
+    it(`should give true for unincorporated tiles 
+    and active corporations present 
+    but should not add stock to player when not available`, () => {
       const game = new Game(1, 1);
       game.addPlayer(1, 'test');
       game.players[0].tiles = [3];
@@ -294,10 +301,14 @@ describe('Game', () => {
       game.placeATile(3, 1);
       game.corporations.removeStocks('phoenix', 25);
       assert.ok(game.establishCorporation(3, 'phoenix', 1));
-      assert.deepStrictEqual(game.getStatus(1).status.player.assets.stocks.phoenix, 0);
+      assert.deepStrictEqual(
+        game.getStatus(1).status.player.assets.stocks.phoenix, 
+        0
+      );
     });
 
-    it('should not establish a corporate when unincorporated tiles available but no corporate available', () => {
+    it(`should not establish a corporate when unincorporated tiles available 
+    but no corporate available`, () => {
       const game = new Game(1, 1);
       game.addPlayer(1, 'test');
       game.players[0].tiles = [3];
@@ -398,7 +409,8 @@ describe('Game', () => {
       assert.deepStrictEqual(game.getAdjacentCorporate(3), ['sackson', 'zeta']);
     });
 
-    it('should not give the adjacent corporations when tile has no adjacent corporation', () => {
+    it(`should not give the adjacent corporations 
+    when tile has no adjacent corporation`, () => {
       const game = new Game(1, 1);
       game.placedTiles = [0, 1, 2, 4, 5];
       game.unincorporatedTiles = [[0, 1, 2], [4, 5]];
@@ -414,7 +426,10 @@ describe('Game', () => {
       const game = new Game(1, 1);
       game.placedTiles = [43, 55, 56, 32, 20, 45];
       game.unincorporatedTiles = [[43, 55, 56], [20, 32]];
-      assert.deepStrictEqual(game.getAdjacentPlacedTileList(44), [20, 32, 43, 55, 56, 45]);
+      assert.deepStrictEqual(
+        game.getAdjacentPlacedTileList(44), 
+        [20, 32, 43, 55, 56, 45]
+      );
     });
   });
 
@@ -426,7 +441,10 @@ describe('Game', () => {
       game.addPlayer(1, 'test');
       game.establishCorporation(0, 'zeta', 1);
       game.increaseCorporate(3, 'zeta');
-      assert.deepStrictEqual(game.getStatus(1).status.corporations.zeta.tiles, [0, 1, 2, 3]);
+      assert.deepStrictEqual(
+        game.getStatus(1).status.corporations.zeta.tiles, 
+        [0, 1, 2, 3]
+      );
     });
   });
   
@@ -458,7 +476,10 @@ describe('Game', () => {
       const game = new Game(1, 1);
       game.addPlayer(1, 'test');
       game.distributeMinority(3000, 0, 'zeta');
-      assert.deepStrictEqual(game.getStatus(1).status.player.assets.money, 9000);
+      assert.deepStrictEqual(
+        game.getStatus(1).status.player.assets.money, 
+        9000
+      );
     });
   });
 
@@ -466,8 +487,15 @@ describe('Game', () => {
     it('should give the majority and  minority bonus to the player', () => {
       const game = new Game(1, 1);
       game.addPlayer(1, 'test');
-      game.giveBonusToStockHolders({majority: 1000, minority: 1000}, [0, 0], 'zeta');
-      assert.deepStrictEqual(game.getStatus(1).status.player.assets.money, 8000);
+      game.giveBonusToStockHolders(
+        {majority: 1000, minority: 1000}, 
+        [0, 0], 
+        'zeta'
+      );
+      assert.deepStrictEqual(
+        game.getStatus(1).status.player.assets.money, 
+        8000
+      );
     });
   });
 
@@ -479,8 +507,14 @@ describe('Game', () => {
       game.players[0].stocks.zeta = 2;
       game.players[1].stocks.zeta = 1;
       game.distributeBonus({majority: 1000, minority: 500}, 'zeta');
-      assert.deepStrictEqual(game.getStatus(1).status.player.assets.money, 7000);
-      assert.deepStrictEqual(game.getStatus(2).status.player.assets.money, 6500);
+      assert.deepStrictEqual(
+        game.getStatus(1).status.player.assets.money, 
+        7000
+      );
+      assert.deepStrictEqual(
+        game.getStatus(2).status.player.assets.money, 
+        6500
+      );
     });
   });
 

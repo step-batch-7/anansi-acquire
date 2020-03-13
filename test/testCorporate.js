@@ -20,7 +20,8 @@ describe('Corporate', function() {
   });
 
   describe('establish', () => {
-    it('should establish the corporate with the given tile and change the active status ', () => {
+    it(`should establish the corporate with the given tile 
+    and change the active status`, () => {
       const corporate = Corporate.create('zeta');
       corporate.establish([0, 1]);
       const expected = {
@@ -36,7 +37,8 @@ describe('Corporate', function() {
       assert.deepStrictEqual(corporate.status, expected);
     });
 
-    it('should establish a stable corporate with the given tile and change the active status', () => {
+    it(`should establish a stable corporate with the given tile 
+    and change the active status`, () => {
       const corporate = Corporate.create('zeta');
       corporate.establish([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
       const expected = {
