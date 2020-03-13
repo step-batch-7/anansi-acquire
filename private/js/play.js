@@ -40,7 +40,8 @@ const establish = (tile, corporation) => {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({tile, corporation})
     },
-    handleAction
+    handleAction,
+    () => showError('You can\'t establish', 2000)
   );
 };
 
