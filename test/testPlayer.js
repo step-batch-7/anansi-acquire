@@ -39,4 +39,19 @@ describe('Player', () => {
       assert.deepStrictEqual(player.getStatus().assets.tiles, expected);
     });
   });
+
+  describe('addTile', () => {
+    it('should not give tile to player when tile is not available', () => {
+      const player = new Player(123, 'test', [1, 7, 9, 10, 45]);
+      const expected = [1, 7, 9, 10, 45];
+      player.addTile(undefined);
+      assert.deepStrictEqual(player.getStatus().assets.tiles, expected);
+    });
+    it('should add tile to player\'s tile', () => {
+      const player = new Player(123, 'test', [1, 7, 9, 10, 45]);
+      const expected = [1, 7, 9, 10, 45, 5];
+      player.addTile(5);
+      assert.deepStrictEqual(player.getStatus().assets.tiles, expected);
+    });
+  });
 });
