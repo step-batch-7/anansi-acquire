@@ -38,11 +38,30 @@ const establish = (tile, corporation) => {
     'establish',
     {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({tile, corporation})
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tile, corporation })
     },
     handleAction,
     () => showError('You can\'t establish', interval)
+  );
+};
+
+const buyStocks = (corpsStocks) => {
+  let msg = 'You bought ';
+  for (const corp in corpStocks) {
+    msg = msg + `corp ${corpStocks[corp]}`;
+  }
+  const interval = 2000;
+  showError(msg, interval);
+  sentPostReq(
+    'buyStocks',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ corpStocks })
+    },
+    handleAction,
+    () => showError('You can\'t buy', interval)
   );
 };
 
@@ -90,8 +109,8 @@ const skip = function(action) {
     'skip',
     {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({action})
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action })
     },
     handleAction
   );
@@ -115,6 +134,31 @@ const generateEstablishActions = function(groups, corporations) {
   );
 };
 
+const generateBuyStocksActions = function(activeCorps) {
+  const generateHtml = function(html, corp) {
+    return html + `<div class="select-container ">
+    <label for="corp">${corp}</label>
+      <select name="noOfStocks">
+        <option name="noOfStocks" value="0">0</option>
+        <option name="noOfStocks" value="1">1</option>
+        <option name="noOfStocks" value="2">2</option>
+        <option name="noOfStocks" value="3">3</option>
+      </select>
+    </div>`;
+  };
+  let html = '<h3 class="action-head">Select corporations stocks to buy</h3>';
+  html += '<div class="action-box">';
+  html = activeCorps.reduce(generateHtml, html);
+  return (
+    html +
+    `</div><div class="action-skip">
+  <button onclick="skip('buyStocks')">Skip</button></div>
+  <div class="action-submit">
+  <button type="submit" onclick="buyStocks('${activeCorps}')">submit
+  </button></div>`
+  );
+};
+
 let tileClicked = '1';
 
 const placeATile = function(tile) {
@@ -125,8 +169,8 @@ const placeATile = function(tile) {
     'placeTile',
     {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({tile})
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tile })
     },
     handleAction,
     () => showError('You can\'t place a tile now', interval)
@@ -215,7 +259,7 @@ const showCardBody = function(card, tab) {
   tab.classList.add('selected');
 };
 
-const createActivityRow = function({text, type}) {
+const createActivityRow = function({ text, type }) {
   return `<div class="activityDiv">
   <p>
   <img src="../images/activityLogIcons/${type}.png"
@@ -246,10 +290,18 @@ const placeCorps = function(corporations) {
   }
 };
 
-const handleEstablishAction = function({groups, availableCorporations}) {
+const handleEstablishAction = function({ groups, availableCorporations }) {
   const actionTab = document.querySelector('#action-tab');
   showCardBody('actions', actionTab);
   const html = generateEstablishActions(groups, availableCorporations);
+  document.querySelector('#actions').innerHTML = html;
+  document.querySelector('#action-tab').classList.remove('hideDiv');
+};
+
+const handleBuyStocksAction = function({ activeCorps }) {
+  const actionTab = document.querySelector('#action-tab');
+  showCardBody('actions', actionTab);
+  const html = generateBuyStocksActions(activeCorps);
   document.querySelector('#actions').innerHTML = html;
   document.querySelector('#action-tab').classList.remove('hideDiv');
 };
@@ -261,18 +313,19 @@ const handleNoCorpsAction = function() {
     'skip',
     {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({action: 'skip'})
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'skip' })
     },
     handleAction
   );
 };
 
-const handleAction = function({status, action}) {
+const handleAction = function({ status, action }) {
   updateGamePage(status);
   const actions = {
     establish: handleEstablishAction,
-    'no-corps': handleNoCorpsAction
+    'no-corps': handleNoCorpsAction,
+    'buyStocks': handleBuyStocksAction
   };
   if (action.state === 'wait' || action.state === 'placeTile') {
     document.querySelector('#actions').classList.add('hideDiv');

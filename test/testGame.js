@@ -212,9 +212,11 @@ describe('Game', () => {
       game.placedTiles = [0, 1, 2, 4, 5];
       game.unincorporatedTiles = [[0, 1, 2], [4, 5]];
       game.addPlayer(1, 'test');
-      game.players[0].tiles = [3];
       game.establishCorporation(1, 'zeta', 1);
       game.establishCorporation(4, 'sackson', 1);
+
+      game.players[0].tiles = [3];
+      game.players[0].state = 'placeTile';
       assert.ok(game.placeATile(3, 1));
     });
 
@@ -224,13 +226,14 @@ describe('Game', () => {
       const set2 = [27, 28, 29, 30, 31, 32, 33, 34, 35];
       game.placedTiles = set1.concat(set2);
       game.unincorporatedTiles = [
-        [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 
+        [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
         [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35]
       ];
       game.addPlayer(1, 'test');
       game.players[0].tiles = [12];
       game.establishCorporation(1, 'zeta', 1);
       game.establishCorporation(24, 'sackson', 1);
+      game.players[0].state = 'placeTile';
       assert.ok(game.placeATile(12, 1));
     });
 
@@ -245,6 +248,7 @@ describe('Game', () => {
       game.players[0].tiles = [3];
       game.establishCorporation(1, 'zeta', 1);
       game.establishCorporation(4, 'sackson', 1);
+      game.players[0].state = 'placeTile';
       assert.ok(game.placeATile(3, 1));
     });
 
@@ -255,6 +259,7 @@ describe('Game', () => {
       game.addPlayer(1, 'test');
       game.players[0].tiles = [3];
       game.establishCorporation(1, 'zeta', 1);
+      game.players[0].state = 'placeTile';
       assert.ok(game.placeATile(3, 1));
     });
   });
@@ -288,7 +293,7 @@ describe('Game', () => {
       game.addPlayer(1, 'test');
       game.players[0].tiles = [3];
       game.players[0].state = 'placeTile';
-      game.currentPlayer = {id: 1};
+      game.currentPlayer = { id: 1 };
       game.placeNormalTile(1);
       game.placeATile(3, 1);
       assert.notOk(game.establishCorporation(3, 'phoenix', 1));
@@ -301,7 +306,7 @@ describe('Game', () => {
       game.players[0].state = 'placeTile';
       game.placeNormalTile(2);
       game.placeATile(3);
-      game.corporations = {establishCorporate: () => false};
+      game.corporations = { establishCorporate: () => false };
       assert.notOk(game.establishCorporation(3, 'phoenix', 1));
     });
 
@@ -318,7 +323,7 @@ describe('Game', () => {
       game.corporations.removeStocks('phoenix', 25);
       assert.ok(game.establishCorporation(3, 'phoenix', 1));
       assert.deepStrictEqual(
-        game.getStatus(1).status.player.assets.stocks.phoenix, 
+        game.getStatus(1).status.player.assets.stocks.phoenix,
         0
       );
     });
@@ -329,7 +334,7 @@ describe('Game', () => {
       game.addPlayer(1, 'test');
       game.players[0].tiles = [3];
       game.unincorporatedTiles = [[0, 1, 2]];
-      game.corporations = {getInactiveCorporate: () => []};
+      game.corporations = { getInactiveCorporate: () => [] };
       assert.ok(game.checkCorpEstablishment());
     });
   });
@@ -339,7 +344,7 @@ describe('Game', () => {
       const game = new Game(1, 1);
       game.addPlayer(1, 'test');
       game.players[0].state = 'wait';
-      assert.deepStrictEqual(game.getStateData(1), {state: 'wait'});
+      assert.deepStrictEqual(game.getStateData(1), { state: 'wait' });
     });
 
     it('should get state with data for the player state is establish', () => {
@@ -347,7 +352,7 @@ describe('Game', () => {
       game.addPlayer(1, 'test');
       game.placeNormalTile(1);
       game.placeNormalTile(2);
-      game.corporations = {getInactiveCorporate: () => ['phoenix']};
+      game.corporations = { getInactiveCorporate: () => ['phoenix'] };
       game.setUnincorporatedGroups();
       game.players[0].state = 'establish';
       const state = {
@@ -443,7 +448,7 @@ describe('Game', () => {
       game.placedTiles = [43, 55, 56, 32, 20, 45];
       game.unincorporatedTiles = [[43, 55, 56], [20, 32]];
       assert.deepStrictEqual(
-        game.getAdjacentPlacedTileList(44), 
+        game.getAdjacentPlacedTileList(44),
         [20, 32, 43, 55, 56, 45]
       );
     });
@@ -458,12 +463,12 @@ describe('Game', () => {
       game.establishCorporation(0, 'zeta', 1);
       game.increaseCorporate(3, 'zeta');
       assert.deepStrictEqual(
-        game.getStatus(1).status.corporations.zeta.tiles, 
+        game.getStatus(1).status.corporations.zeta.tiles,
         [0, 1, 2, 3]
       );
     });
   });
-  
+
   describe('getBiggerToSmallerCorp', () => {
     it('should give the sorted corporations with area', () => {
       const game = new Game(1, 1);
@@ -493,7 +498,7 @@ describe('Game', () => {
       game.addPlayer(1, 'test');
       game.distributeMinority(3000, 0, 'zeta');
       assert.deepStrictEqual(
-        game.getStatus(1).status.player.assets.money, 
+        game.getStatus(1).status.player.assets.money,
         9000
       );
     });
@@ -504,12 +509,12 @@ describe('Game', () => {
       const game = new Game(1, 1);
       game.addPlayer(1, 'test');
       game.giveBonusToStockHolders(
-        {majority: 1000, minority: 1000}, 
-        [0, 0], 
+        { majority: 1000, minority: 1000 },
+        [0, 0],
         'zeta'
       );
       assert.deepStrictEqual(
-        game.getStatus(1).status.player.assets.money, 
+        game.getStatus(1).status.player.assets.money,
         8000
       );
     });
@@ -522,13 +527,13 @@ describe('Game', () => {
       game.addPlayer(2, 'test2');
       game.players[0].stocks.zeta = 2;
       game.players[1].stocks.zeta = 1;
-      game.distributeBonus({majority: 1000, minority: 500}, 'zeta');
+      game.distributeBonus({ majority: 1000, minority: 500 }, 'zeta');
       assert.deepStrictEqual(
-        game.getStatus(1).status.player.assets.money, 
+        game.getStatus(1).status.player.assets.money,
         7000
       );
       assert.deepStrictEqual(
-        game.getStatus(2).status.player.assets.money, 
+        game.getStatus(2).status.player.assets.money,
         6500
       );
     });
@@ -540,9 +545,9 @@ describe('Game', () => {
       game.addPlayer(1, 'test');
       game.addInitialActivity();
       const expected = [
-        {type: 'turn', text: 'test\'s turn'}, 
-        {type: 'tilePlaced', text: 'Initial tile placed'}, 
-        {type: 'order', text: 'Order decide based on initial tiles'}
+        { type: 'turn', text: 'test\'s turn' },
+        { type: 'tilePlaced', text: 'Initial tile placed' },
+        { type: 'order', text: 'Order decide based on initial tiles' }
       ];
       assert.deepStrictEqual(game.getStatus(1).status.activity, expected);
     });
