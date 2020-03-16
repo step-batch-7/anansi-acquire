@@ -46,10 +46,15 @@ const establish = (tile, corporation) => {
   );
 };
 
-const buyStocks = (corpsStocks) => {
+const buyStocks = (corpStocks) => {
+  const corps = Array.from(document.getElementsByName('stocks'));
+  const corpsAndStocks = {};
+  corps.forEach(corp => {
+    corpsAndStocks[corpStocks] = Number.parseInt( corp.value);
+  });
   let msg = 'You bought ';
-  for (const corp in corpStocks) {
-    msg = msg + `corp ${corpStocks[corp]}`;
+  for (const corp in corpsAndStocks) {
+    msg = msg + `${corp} ${corpsAndStocks[corp]}`;
   }
   const interval = 2000;
   showError(msg, interval);
@@ -58,7 +63,7 @@ const buyStocks = (corpsStocks) => {
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ corpStocks })
+      body: JSON.stringify({corpsAndStocks})
     },
     handleAction,
     () => showError('You can\'t buy', interval)
@@ -138,11 +143,11 @@ const generateBuyStocksActions = function(activeCorps) {
   const generateHtml = function(html, corp) {
     return html + `<div class="select-container ">
     <label for="corp">${corp}</label>
-      <select name="noOfStocks">
-        <option name="noOfStocks" value="0">0</option>
-        <option name="noOfStocks" value="1">1</option>
-        <option name="noOfStocks" value="2">2</option>
-        <option name="noOfStocks" value="3">3</option>
+      <select name="stocks">
+        <option value=0>0</option>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
       </select>
     </div>`;
   };
