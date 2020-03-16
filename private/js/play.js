@@ -325,12 +325,39 @@ const handleNoCorpsAction = function() {
   );
 };
 
-const handleAction = function({ status, action }) {
+const changeTiles = function (tiles) {
+  sentPostReq(
+    'replaceTiles',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tiles })
+    },
+    handleAction);
+};
+
+const generateUnplayableTileHtml = function (tiles) {
+  const tileNumber = tiles.map(tileGenerator);
+  return `<div>${tileNumber.join(',')}</div>
+    <div>These tiles are unplayable do you want to replace? </div>
+    <button onclick=changeTiles(${JSON.stringify(tiles)})>Replace</button>`;
+};
+
+const handleUnplayableTile = function ({ unplayableTiles }) {
+  const actionTab = document.querySelector('#action-tab');
+  showCardBody('actions', actionTab);
+  const html = generateUnplayableTileHtml(unplayableTiles);
+  document.querySelector('#actions').innerHTML = html;
+  actionTab.classList.remove('hideDiv');
+};
+
+const handleAction = function({status, action}) {
   updateGamePage(status);
   const actions = {
     establish: handleEstablishAction,
     'no-corps': handleNoCorpsAction,
-    'buyStocks': handleBuyStocksAction
+    'buyStocks': handleBuyStocksAction,
+    'unplayableTile': handleUnplayableTile
   };
   if (action.state === 'wait' || action.state === 'placeTile') {
     document.querySelector('#actions').classList.add('hideDiv');

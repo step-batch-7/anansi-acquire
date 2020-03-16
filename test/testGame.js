@@ -352,12 +352,14 @@ describe('Game', () => {
       game.addPlayer(1, 'test');
       game.placeNormalTile(1);
       game.placeNormalTile(2);
-      game.corporations = { getInactiveCorporate: () => ['phoenix'] };
+      // game.corporations = { getInactiveCorporate: () => ['phoenix'] };
       game.setUnincorporatedGroups();
       game.players[0].state = 'establish';
       const state = {
         state: 'establish',
-        availableCorporations: ['phoenix'],
+        availableCorporations: [
+          'phoenix', 'quantum', 'hydra', 'fusion', 'america', 'sackson', 'zeta'
+        ],
         groups: [[1, 2]]
       };
       assert.deepStrictEqual(game.getStateData(1), state);
