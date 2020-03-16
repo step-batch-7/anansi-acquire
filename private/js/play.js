@@ -49,8 +49,8 @@ const establish = (tile, corporation) => {
 const buyStocks = (corpStocks) => {
   const corps = Array.from(document.getElementsByName('stocks'));
   const corpsAndStocks = {};
-  corps.forEach(corp => {
-    corpsAndStocks[corpStocks] = Number.parseInt( corp.value);
+  corps.forEach((corp, index) => {
+    corpsAndStocks[corpStocks[index]] = Number.parseInt( corp.value);
   });
   let msg = 'You bought ';
   for (const corp in corpsAndStocks) {
@@ -141,7 +141,7 @@ const generateEstablishActions = function(groups, corporations) {
 
 const generateBuyStocksActions = function(activeCorps) {
   const generateHtml = function(html, corp) {
-    return html + `<div class="select-container ">
+    return `${html} <div class="select-container ">
     <label for="corp">${corp}</label>
       <select name="stocks">
         <option value=0>0</option>
@@ -155,12 +155,13 @@ const generateBuyStocksActions = function(activeCorps) {
   html += '<div class="action-box">';
   html = activeCorps.reduce(generateHtml, html);
   return (
-    html +
-    `</div><div class="action-skip">
+    `${html}
+    </div><div class="action-skip">
   <button onclick="skip('buyStocks')">Skip</button></div>
   <div class="action-submit">
-  <button type="submit" onclick="buyStocks('${activeCorps}')">submit
-  </button></div>`
+  <button type="submit" onclick=buyStocks(${JSON.stringify(activeCorps)})>submit
+  </button></div>
+  <div>You can buy max any 3 stocks</div>`
   );
 };
 
