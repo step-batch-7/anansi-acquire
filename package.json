@@ -8,9 +8,9 @@
   },
   "scripts": {
     "start": "node server.js",
-    "test": "nyc mocha",
+    "test": "nyc mocha --reporter mocha-lcov-reporter test/*.js | ./node_modules/.bin/codeclimate-test-reporter",
     "linterTest": "eslint ./",
-    "allTests": "npm test && npm run linterTest",
+    "allTests": "npm test && npm run linterTest ",
     "stage": "git push https://git.heroku.com/stage-anansi-acquire.git master"
   },
   "repository": {
@@ -26,8 +26,10 @@
   "homepage": "https://github.com/step-batch-7/anansi-acquire#readme",
   "devDependencies": {
     "chai": "^4.2.0",
+    "codeclimate-test-reporter": "^0.5.1",
     "eslint": "^6.8.0",
     "mocha": "^7.1.0",
+    "mocha-lcov-reporter": "^1.3.0",
     "nyc": "^15.0.0",
     "sinon": "^9.0.0",
     "supertest": "^4.0.2"
