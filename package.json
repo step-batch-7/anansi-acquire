@@ -8,9 +8,9 @@
   },
   "scripts": {
     "start": "node server.js",
-    "test": "nyc mocha --reporter mocha-lcov-reporter test/*.js | ./node_modules/.bin/codeclimate-test-reporter",
+    "test": "nyc mocha",
     "linterTest": "eslint ./",
-    "allTests": "npm test && npm run linterTest ",
+    "allTests": "npm test && npm run linterTest",
     "stage": "git push https://git.heroku.com/stage-anansi-acquire.git master"
   },
   "repository": {
